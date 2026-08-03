@@ -1,0 +1,13 @@
+title: "Steno"
+description: "A fast, configurable static site generator powered by Deno."
+author: "Steno contributors"
+contentDir: "content"
+output: "dist"
+
+custom:
+  shortUrls: true
+  theme: "./theme"
+  themeConfig:
+    contentDriven: true
+    githubUrl: "https://github.com/GabsEdits/steno"
+    jsrUrl: "https://jsr.io/@steno/steno"

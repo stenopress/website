@@ -1,0 +1,26 @@
+official:
+  - name: Minimal
+    package: "@steno/theme-minimal"
+    label: Default
+    description: A quiet starting point for personal sites, journals, portfolios, and single-author blogs.
+    install: "theme: jsr:@steno/theme-minimal@^0.10.0"
+    sourceUrl: https://github.com/stenopress/steno/tree/main/packages/theme-minimal
+    previewHtml: |
+      <!doctype html><style>*{box-sizing:border-box}body{margin:0;padding:9%;font:16px Georgia,serif;color:#29252a;background:#f8f6f1}nav{display:flex;justify-content:space-between;border-bottom:1px solid #d8d2ca;padding-bottom:18px;font:12px Arial}main{max-width:620px;margin:12% auto}small{font:10px Arial;color:#7760a9;letter-spacing:.12em}h1{font-size:48px;line-height:1.05;margin:18px 0}p{font-size:18px;line-height:1.7;color:#625b63}</style><nav><b>STENO JOURNAL</b><span>Writing &nbsp; About</span></nav><main><small>APRIL 18, 2026</small><h1>A quiet place for words.</h1><p>A clean, focused starting point for personal sites, journals, portfolios, and blogs.</p></main>
+  - name: Docs Minimal
+    package: "@steno/theme-docs-minimal"
+    label: Docs
+    description: A dense, navigable documentation theme that keeps long-form technical content readable.
+    install: "theme: jsr:@steno/theme-docs-minimal@^0.10.0"
+    sourceUrl: https://github.com/stenopress/steno/tree/main/packages/theme-docs-minimal
+    previewHtml: |
+      <!doctype html><style>*{box-sizing:border-box}body{margin:0;font:14px Arial;color:#20232a;background:#fff;display:grid;grid-template-columns:190px 1fr;min-height:100vh}aside{padding:32px 24px;background:#f3f4f6;border-right:1px solid #dfe1e5}aside b{display:block;margin-bottom:30px}aside span{display:block;margin:14px 0;color:#69707d}main{padding:9%}small{color:#6551e8;font-weight:bold}h1{font-size:42px;letter-spacing:-.04em}p{max-width:600px;color:#606775;line-height:1.7}pre{margin-top:30px;padding:18px;background:#19171f;color:#ddd;border-radius:6px}</style><aside><b>STENO DOCS</b><span>Introduction</span><span>Configuration</span><span>Themes</span><span>Plugins</span></aside><main><small>GETTING STARTED</small><h1>Build your first Steno site</h1><p>Everything you need to go from Markdown to a production-ready static website.</p><pre>deno task dev</pre></main>
+  - name: Marketing Minimal
+    package: "@steno/theme-marketing-minimal"
+    label: Marketing
+    description: A content-driven landing-page theme with responsive product sections, code examples, and calls to action.
+    install: "theme: jsr:@steno/theme-marketing-minimal@^0.10.0"
+    sourceUrl: https://github.com/stenopress/steno/tree/main/packages/theme-marketing-minimal
+    previewHtml: |
+      <!doctype html><style>*{box-sizing:border-box}body{margin:0;font:15px Arial;color:#f4f2f7;background:#17151d}header{padding:24px 8%;display:flex;justify-content:space-between;border-bottom:1px solid #34303c}main{padding:10% 8%;background:radial-gradient(circle at 70% 20%,#4932a3 0,transparent 35%)}small{color:#b6a5ff;font-weight:bold}h1{max-width:620px;font-size:58px;letter-spacing:-.05em;line-height:1;margin:20px 0}p{max-width:540px;color:#aaa4b3;line-height:1.7}button{margin-top:22px;padding:12px 18px;border:0;background:#8b70ef;color:white}</style><header><b>STENO</b><span>Docs &nbsp; GitHub</span></header><main><small>POWERED BY DENO</small><h1>Build fast. Ship safely.</h1><p>Fast, configurable static site generation with transactional output.</p><button>Get started</button></main>
+community: []

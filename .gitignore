@@ -1,0 +1,5 @@
+dist/
+.dist.steno-*/
+content/.steno/build-cache.json
+content/docs/
+theme/assets/docs-search.json

@@ -1,0 +1,36 @@
+- label: Start here
+  links:
+    - title: Overview
+      href: /docs/
+    - title: Getting started
+      href: /docs/getting_started/
+    - title: Configuration
+      href: /docs/config_reference/
+    - title: Doctor
+      href: /docs/doctor/
+- label: Build sites
+  links:
+    - title: Content
+      href: /docs/content/
+    - title: Theme development
+      href: /docs/theme_development/
+    - title: Theme specification
+      href: /docs/theme-specification/
+    - title: Tau syntax
+      href: /docs/tau_syntax/
+- label: Extend Steno
+  links:
+    - title: Plugins
+      href: /docs/plugins/
+    - title: Plugin sandbox
+      href: /docs/plugin_sandbox/
+    - title: API reference
+      href: /docs/api_reference/
+- label: Engineering
+  links:
+    - title: Atomic builds
+      href: /docs/atomic_builds/
+    - title: Benchmarks
+      href: /docs/benchmarks/
+    - title: Contributing
+      href: /docs/contribution_guidelines/

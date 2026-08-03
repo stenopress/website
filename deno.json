@@ -1,0 +1,12 @@
+{
+  "tasks": {
+    "docs:sync": "deno run --allow-read=. --allow-write=content/docs,theme/assets/docs-search.json scripts/sync_docs.ts",
+    "build": "deno task docs:sync && deno run -A jsr:@steno/steno@^0.10.0 build",
+    "dev": "deno task docs:sync && deno run -A jsr:@steno/steno@^0.10.0 dev"
+  },
+  "imports": {
+    "@steno/steno": "jsr:@steno/steno@^0.10.0",
+    "@steno/theme-marketing-minimal": "jsr:@steno/theme-marketing-minimal@^0.10.0",
+    "@std/path": "jsr:@std/path@1.1.6"
+  }
+}

@@ -1,0 +1,14 @@
+official:
+  - name: Tailwind CSS
+    package: "@steno/plugin-tailwind"
+    label: Styles
+    description: Compiles Tailwind utility classes used in your content and templates during the build. Run it isolated since it shells out to a bundler and does not need filesystem access beyond its own output.
+    install: "jsr:@steno/plugin-tailwind"
+    sourceUrl: https://jsr.io/@steno/plugin-tailwind
+  - name: Shiki syntax highlighting
+    package: "@steno/plugin-shiki"
+    label: Code
+    description: Highlights fenced code blocks with the same grammars and themes as VS Code, applied as an HTML transform on page and collection content.
+    install: "jsr:@steno/plugin-shiki"
+    sourceUrl: https://jsr.io/@steno/plugin-shiki
+community: []

@@ -1,0 +1,24 @@
+- title: Zero-config mode
+  description: Build a Markdown file or directory without creating a configuration file first.
+- title: Configured projects
+  description: Control themes, plugins, collections, redirects, output, and project-wide metadata.
+- title: Local or remote themes
+  description: Use a local directory or resolve versioned themes from JSR, npm, and HTTPS sources.
+- title: Persistent build cache
+  description: Reuse validated build state across processes for warm and incremental compilation.
+- title: Content collections
+  description: Filter, sort, limit, and validate groups of pages for blogs, indexes, and archives.
+- title: YAML or TOML
+  description: Choose either configuration format and use YAML or TOML frontmatter in content.
+- title: Markdown includes
+  description: Compose reusable content safely with root confinement and circular-include detection.
+- title: Data and environment
+  description: Load project data files and expose explicitly public environment values to templates.
+- title: Managed head tags
+  description: Define links, metadata, and scripts without manually rebuilding the document head.
+- title: Static redirects
+  description: Generate redirect pages with the same collision checks used for pages and assets.
+- title: Live development
+  description: Rebuild changed content and refresh the browser through the included development server.
+- title: Bounded rendering
+  description: Keep Tau compilation predictable with explicit cache, nesting, and output limits.
