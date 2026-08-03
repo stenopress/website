@@ -1,0 +1,54 @@
+name: Sync docs from steno
+
+on:
+  schedule:
+    - cron: "0 6 * * 1" # every Monday, 06:00 UTC
+  workflow_dispatch: {}
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout website
+        uses: actions/checkout@v4
+
+      - name: Checkout steno docs
+        uses: actions/checkout@v4
+        with:
+          repository: stenopress/steno
+          sparse-checkout: |
+            docs
+          sparse-checkout-cone-mode: false
+          path: upstream-steno
+
+      - name: Sync docs-source
+        run: |
+          rsync -a --delete upstream-steno/docs/ docs-source/
+          rm -rf upstream-steno
+
+      - name: Check for changes
+        id: diff
+        run: |
+          if git diff --quiet -- docs-source; then
+            echo "changed=false" >> "$GITHUB_OUTPUT"
+          else
+            echo "changed=true" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Open pull request
+        if: steps.diff.outputs.changed == 'true'
+        uses: peter-evans/create-pull-request@v6
+        with:
+          commit-message: "chore(docs): sync docs-source from stenopress/steno"
+          title: "chore(docs): sync docs-source from stenopress/steno"
+          body: >
+            Automated sync of `docs-source/` from the upstream
+            [stenopress/steno](https://github.com/stenopress/steno) `docs/`
+            directory. Review the diff before merging — a doc rename or
+            removal upstream can break `/docs/*` routes here.
+          branch: sync-docs-source
+          delete-branch: true
