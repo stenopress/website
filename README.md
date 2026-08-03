@@ -1,66 +1,61 @@
-# Steno website
+<div align="center">
 
-This is the Steno marketing and documentation website: a real Steno project,
-built against the published `@steno/steno` and `@steno/theme-marketing-minimal`
-packages from JSR.
+# Steno Website
+
+The marketing and documentation site for [Steno](https://github.com/stenopress/steno).
+Built with Steno itself, using the published `@steno/steno` and
+`@steno/theme-marketing-minimal` packages from JSR.
+
+</div>
+
+## Structure
 
 ```text
 .
 ├── content/
-│   ├── .steno/
-│   │   └── config.yml
-│   ├── _data/
-│   │   ├── docs_navigation.yml
-│   │   ├── features.yml
-│   │   ├── plugins.yml
-│   │   └── themes.yml
-│   ├── index.md
-│   ├── plugins.md
-│   └── themes.md
-├── docs-source/
+│   ├── .steno/config.yml       site config
+│   ├── _data/                  themes.yml, plugins.yml, features.yml, nav
+│   ├── index.md                landing page
+│   ├── themes.md                /themes
+│   └── plugins.md               /plugins
+├── docs-source/                vendored copy of stenopress/steno's docs/
 ├── scripts/
-│   └── sync_docs.ts
+│   └── sync_docs.ts            turns docs-source/ into content/docs/
 ├── theme/
-│   ├── assets/
-│   │   ├── concept.css
-│   │   ├── concept.js
-│   │   └── docs-search.json   (generated)
-│   ├── layouts/
-│   │   ├── docs.tau
-│   │   ├── landing.tau
-│   │   ├── plugins.tau
-│   │   └── themes.tau
-│   └── mod.ts
+│   ├── assets/                 concept.css, concept.js, search index
+│   ├── layouts/                landing, docs, themes, plugins
+│   └── mod.ts                  extends the official marketing theme
 └── deno.json
 ```
-
-Structured content belongs in `content/_data/`. The site's own CSS/JS live in
-`theme/assets/` and are served through the theme's `assets` map (merged with
-the official marketing theme's own assets) rather than the `content/public/`
-passthrough — the published `@steno/steno@0.10.0` on JSR predates that
-passthrough feature, so this repo works around it until a release picks it up.
-Switch back to `content/public/` once that lands upstream.
-
-Documentation pages are generated from `docs-source/` by `scripts/sync_docs.ts`.
-That directory is a vendored snapshot of the main
-[steno](https://github.com/stenopress/steno) repo's `docs/` folder. A weekly
-[`sync-docs`](.github/workflows/sync-docs.yml) GitHub Action pulls the latest
-`docs/*.md` from upstream and opens a PR against `docs-source/` when anything
-changed — merge it like any other PR after checking the diff (a doc
-rename/removal upstream can break a `/docs/*` route here). Trigger it manually
-from the Actions tab if you don't want to wait for Monday. Generated
-`content/docs/`, `theme/assets/docs-search.json`, build cache, staging
-directories, and output are intentionally ignored.
-
-`content/_data/themes.yml` and `content/_data/plugins.yml` list the official
-and community themes/plugins shown on `/themes/` and `/plugins/`. Open a PR
-against this repo, adding an entry under `community:`, to list your own.
 
 ## Commands
 
 ```sh
-deno task dev
-deno task build
+deno task dev      # local dev server
+deno task build    # production build
 ```
 
-Both tasks synchronize the documentation before running Steno.
+Both run `docs:sync` first, regenerating `content/docs/` from `docs-source/`.
+
+## How the docs stay fresh
+
+`docs-source/` is a snapshot, not a live link, of the upstream
+[steno](https://github.com/stenopress/steno) repo's `docs/` folder. A weekly
+GitHub Action ([`sync-docs`](.github/workflows/sync-docs.yml)) checks
+upstream and opens a PR here when something changed. Review the diff before
+merging: a doc rename or removal upstream can break a `/docs/*` route.
+Trigger it manually from the Actions tab any time.
+
+## Adding a theme or plugin
+
+`/themes` and `/plugins` render from `content/_data/themes.yml` and
+`content/_data/plugins.yml`. Add an entry under `community:` in either file
+and open a PR to get listed.
+
+## A quirk worth knowing
+
+Site CSS/JS live in `theme/assets/`, served through the theme's own `assets`
+map instead of the usual `content/public/` passthrough. The published
+`@steno/steno@0.10.0` on JSR predates that passthrough feature, so this is
+the workaround until a release ships it. Safe to move back to
+`content/public/` once it does.
