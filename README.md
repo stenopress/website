@@ -3,8 +3,7 @@
 # Steno Website
 
 The marketing and documentation site for [Steno](https://github.com/stenopress/steno).
-Built with Steno itself, using the published `@steno/steno` and
-`@steno/theme-marketing-minimal` packages from JSR.
+Built with Steno itself, using the `@steno/theme-marketing-minimal` theme.
 
 </div>
 
