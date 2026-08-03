@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="{site.description}" />
+    <meta name="color-scheme" content="light dark" />
+    <title>{#if title}{title} | {/if}{site.title}</title>
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="{#if title}{title} | {/if}{site.title}" />
+    <meta property="og:description" content="{site.description}" />
+    <meta property="og:image" content="/assets/steno-logo.svg" />
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content="{#if title}{title} | {/if}{site.title}" />
+    <meta name="twitter:description" content="{site.description}" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="/assets/style.css" />
+    <link rel="stylesheet" href="/assets/concept.css" />
+    <script src="/assets/site.js" defer></script>
+    <script src="/assets/concept.js" defer></script>
+  </head>
+  <body>
+    <header class="site-document-header">
+      <div class="site-document-header-inner">
+        <a class="site-document-brand" href="/" aria-label="Steno home"><img src="/assets/steno-logo.svg" alt="Steno" /></a>
+        <nav aria-label="Main navigation">
+          <a href="/themes/">Themes</a>
+          <a href="/plugins/">Plugins</a>
+          <a href="/docs/">Docs</a>
+          <button class="docs-search-trigger" type="button" data-search-open><span>Search docs</span><kbd>⌘ K</kbd></button>
+        </nav>
+        <div class="site-document-actions">
+          <a href={theme.githubUrl}>GitHub</a>
+          <a class="site-document-cta" href={theme.jsrUrl}>View on JSR <span>↗</span></a>
+        </div>
+      </div>
+    </header>
+    <main>
+      {@html content}
+      <section class="feature-index-section" id="capabilities">
+        <div class="landing-shell">
+          <div class="feature-index-heading">
+            <h2>Small core. Useful capabilities.</h2>
+            <p>Start with Markdown and add structure only when the site asks for it.</p>
+          </div>
+          <div class="feature-index">
+            {#each data.features as feature}
+              <article><h3>{feature.title}</h3><p>{feature.description}</p></article>
+            {/each}
+          </div>
+        </div>
+      </section>
+      <section class="final-section">
+        <div class="landing-shell final-card">
+          <div>
+            <h2>Build something worth publishing.</h2>
+            <p>Start with a configured project, then keep only the complexity your site earns.</p>
+          </div>
+          <div class="final-action">
+            <button class="copy-command command-button light-command" type="button" aria-label="Copy initializer command">
+              <code>deno create jsr:@steno/init@0.10.0</code>
+              <span>Copy</span>
+            </button>
+            <a href={theme.githubUrl}>Documentation and source <span>↗</span></a>
+          </div>
+        </div>
+      </section>
+    </main>
+    <footer class="site-document-footer">
+      <div>
+        <a href="/"><img src="/assets/steno-logo.svg" alt="Steno" /></a>
+        <p>Fast, configurable static site generation powered by Deno.</p>
+      </div>
+      <nav aria-label="Footer navigation">
+        <a href="/themes/">Themes</a>
+        <a href="/plugins/">Plugins</a>
+        <a href="/docs/">Documentation</a>
+        <a href={theme.githubUrl}>GitHub</a>
+        <a href={theme.jsrUrl}>JSR</a>
+      </nav>
+      <p>MIT licensed · Built with Steno</p>
+    </footer>
+    <dialog class="docs-search-dialog" data-search-dialog>
+      <div class="search-panel">
+        <div class="search-input-row"><svg aria-hidden="true" viewBox="0 0 24 24"><path d="m21 21-4.35-4.35m2.1-5.4a7.5 7.5 0 1 1-15 0 7.5 7.5 0 0 1 15 0Z" /></svg><input type="search" placeholder="Search documentation" aria-label="Search documentation" data-search-input /><button type="button" data-search-close aria-label="Close search">Esc</button></div>
+        <div class="search-results" data-search-results><p>Type to search guides, configuration, Tau, plugins, and API references.</p></div>
+      </div>
+    </dialog>
+  </body>
+</html>
