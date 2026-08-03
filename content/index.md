@@ -11,7 +11,7 @@ layout: landing
       <p class="hero-lede">Steno turns Markdown into a fast static site, and never leaves a broken build live. Start with a configured project for full control, or one file for a lightweight start.</p>
       <div class="hero-actions-row">
         <button class="copy-command command-button" type="button" aria-label="Copy initializer command">
-          <code>deno create jsr:@steno/init@0.10.0</code>
+          <code>deno create jsr:@steno/init</code>
           <span>Copy</span>
         </button>
         <a class="text-action" href="https://github.com/stenopress/steno">Read the docs <span>↗</span></a>

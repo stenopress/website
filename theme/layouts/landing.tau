@@ -60,7 +60,7 @@
           </div>
           <div class="final-action">
             <button class="copy-command command-button light-command" type="button" aria-label="Copy initializer command">
-              <code>deno create jsr:@steno/init@0.10.0</code>
+              <code>deno create jsr:@steno/init</code>
               <span>Copy</span>
             </button>
             <a href={theme.githubUrl}>Documentation and source <span>↗</span></a>
