@@ -9,5 +9,5 @@ custom:
   theme: "./theme"
   themeConfig:
     contentDriven: true
-    githubUrl: "https://github.com/GabsEdits/steno"
+    githubUrl: "https://github.com/stenopress/steno"
     jsrUrl: "https://jsr.io/@steno/steno"
