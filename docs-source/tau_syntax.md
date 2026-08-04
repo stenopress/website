@@ -17,7 +17,7 @@ template        = { text | interpolation | raw_html | include | comment
 interpolation   = "{", expression, { "|", filter }, "}" ;
 filter          = identifier, [ "(", [ expression, { ",", expression } ], ")" ] ;
 raw_html        = "{@html ", expression, "}" ;
-include         = "{@include ", quoted_path, "}" ;
+include         = "&#123;@include ", quoted_path, "}" ;
 comment         = "{#", { any character except "#}" }, "#}" ;
 if_block        = "{", ["-"], "#if ", expression, ["-"], "}", template,
                   { "{", ["-"], ":else if ", expression, ["-"], "}", template },

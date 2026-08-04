@@ -75,7 +75,7 @@ to templates.
 
 ## Markdown includes
 
-Use `{@include "snippet.md"}` in Markdown to inline another file before Markdown
+Use `&#123;@include "snippet.md"}` in Markdown to inline another file before Markdown
 parsing. Steno first resolves it relative to the current file, then relative to
 `contentDir`. Absolute paths are rejected and circular includes throw an error.
 

@@ -75,7 +75,7 @@ Use `{@html expression}` only for trusted HTML, such as Steno's generated
 defaults and edge-case behavior. Invoke a component with `<Header />`; props may
 be literals, expressions (`title={title}`), or shorthand (`{title}`).
 
-`{@include "name"}` in a theme resolves a registered component name through the
+`&#123;@include "name"}` in a theme resolves a registered component name through the
 theme renderer. For Markdown source-file includes, see [Content](content.md).
 
 ## Safety limits
