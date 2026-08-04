@@ -1,6 +1,13 @@
 title: "Steno"
 description: "A fast, configurable static site generator powered by Deno."
 author: "Steno contributors"
+
+plugins:
+  - package: "jsr:@steno/plugin-docs@^0.1.0"
+    mode: trusted
+    options:
+      sourceDir: "docs-source"
+      descriptionTemplate: "{title}, from the Steno documentation."
 contentDir: "content"
 output: "dist"
 
