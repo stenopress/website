@@ -1,8 +1,8 @@
-name: Sync docs from steno
+name: Sync docs from steno release
 
 on:
   schedule:
-    - cron: "0 6 * * 1" # every Monday, 06:00 UTC
+    - cron: "0 */6 * * *" # every 6 hours
   workflow_dispatch: {}
 
 permissions:
@@ -16,10 +16,24 @@ jobs:
       - name: Checkout website
         uses: actions/checkout@v4
 
-      - name: Checkout steno docs
+      - name: Resolve latest GitHub release
+        id: release
+        run: |
+          release="$(curl -fsSL -H 'Accept: application/vnd.github+json' https://api.github.com/repos/stenopress/steno/releases/latest)"
+          tag="$(printf '%s\n' "$release" | sed -n 's/^[[:space:]]*"tag_name":[[:space:]]*"\([^"]*\)".*/\1/p' | head -n 1)"
+          if [ -z "$tag" ]; then
+            echo "Could not resolve latest release tag from GitHub" >&2
+            exit 1
+          fi
+          version="${tag#v}"
+          echo "version=${version}" >> "$GITHUB_OUTPUT"
+          echo "tag=${tag}" >> "$GITHUB_OUTPUT"
+
+      - name: Checkout steno docs at release tag
         uses: actions/checkout@v4
         with:
           repository: stenopress/steno
+          ref: ${{ steps.release.outputs.tag }}
           sparse-checkout: |
             docs
           sparse-checkout-cone-mode: false
@@ -28,6 +42,7 @@ jobs:
       - name: Sync docs-source
         run: |
           rsync -a --delete upstream-steno/docs/ docs-source/
+          printf "%s\n" "${{ steps.release.outputs.tag }}" > docs-source/.upstream-release
           rm -rf upstream-steno
 
       - name: Check for changes
@@ -41,14 +56,17 @@ jobs:
 
       - name: Open pull request
         if: steps.diff.outputs.changed == 'true'
-        uses: peter-evans/create-pull-request@v6
+        uses: peter-evans/create-pull-request@v7
         with:
-          commit-message: "chore(docs): sync docs-source from stenopress/steno"
-          title: "chore(docs): sync docs-source from stenopress/steno"
+          token: ${{ secrets.DOCS_SYNC_TOKEN || github.token }}
+          commit-message: "chore(docs): sync docs-source to steno ${{ steps.release.outputs.tag }}"
+          title: "chore(docs): sync docs-source to steno ${{ steps.release.outputs.tag }}"
           body: >
-            Automated sync of `docs-source/` from the upstream
-            [stenopress/steno](https://github.com/stenopress/steno) `docs/`
-            directory. Review the diff before merging — a doc rename or
-            removal upstream can break `/docs/*` routes here.
+            Automated sync of `docs-source/` from the latest published
+            [stenopress/steno](https://github.com/stenopress/steno)
+            GitHub release (`${{ steps.release.outputs.tag }}`), using that
+            tag as the source of `docs/`.
+            Review the diff before merging — a doc rename or removal can
+            break `/docs/*` routes here.
           branch: sync-docs-source
           delete-branch: true
