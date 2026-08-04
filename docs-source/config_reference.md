@@ -1,7 +1,9 @@
 # Configuration reference
 
-Steno reads YAML (`.yml`/`.yaml`) or TOML from `content/.steno/config.yml` by
-default. Pass another path with `--config`.
+Steno reads `content/.steno/config.yml` by default; pass another path with
+`--config`. The format is picked from the file extension: `.yml`/`.yaml` for
+YAML, `.toml` for TOML - so `--config content/.steno/config.toml` reads the same
+fields written as TOML instead.
 
 ```yaml
 title: My site
@@ -22,16 +24,17 @@ head:
     src: /assets/app.js
     defer: true
 
+theme: ./theme
+themeConfig:
+  accent: purple
+globals:
+  repository: https://example.com/source
+shortUrls: true
+devPort: 5735
+
 custom:
-  theme: ./theme
-  themeConfig:
-    accent: purple
-  globals:
-    repository: https://example.com/source
   stylesheets:
     - /assets/site.css
-  shortUrls: true
-  devPort: 5735
 
 collections:
   posts:
@@ -67,6 +70,11 @@ copied verbatim to the output root (see
 tree of `{ title, url,
 children }` nodes for themes.
 
+`collections` groups pages by their content subdirectory (`content/posts/*` into
+`collections.posts`) with optional sorting, filtering, pagination, and
+frontmatter schema validation; see [Collections](content.md#collections) for
+every field `sortBy`, `order`, `limit`, `filter`, and `schema` accept.
+
 ## Managed head tags
 
 `head` entries are injected into the rendered document independently of the
@@ -87,7 +95,7 @@ tag, its `src`. Inline scripts without `src` and link tags without a recognized
 `rel` have no identity and are always appended. A meta entry must set exactly
 one of `name`, `property`, `httpEquiv`, or `charset`.
 
-## `custom`
+## Theme, globals, and other core settings
 
 `theme` accepts a local directory, a local module, or an importable `jsr:`,
 `npm:`, or HTTPS module. `themeConfig` is merged shallowly with theme defaults.
@@ -97,8 +105,23 @@ one of `name`, `property`, `httpEquiv`, or `charset`.
 server port (default 5735). If it is unavailable, Steno scans forward one port
 at a time up to 65535 and binds the first free one.
 
-`stylesheets` is a theme-facing configuration value; Steno exposes it but does
-not inject tags automatically.
+`hashAssets` defaults to `true`: theme CSS/JS get a content hash baked into
+their output filename (`style.css` -> `style.a1b2c3d4.css`), so a redeploy with
+changed styles or scripts is served under a new URL without a manual CDN cache
+purge. Set it to `false` to keep source filenames as-is.
+
+These fields, along with `pluginSourcePolicy` (below), used to live nested under
+a `custom` object. That nesting is deprecated: set them at the top level of the
+config instead. `steno doctor` warns if it finds any of them still under
+`custom`.
+
+## `custom`
+
+`custom` is reserved for free-form, project-specific values that aren't part of
+Steno's own config surface - for example a theme-facing `stylesheets` list that
+Steno exposes but never reads itself. Anything Steno interprets directly
+(`theme`, `themeConfig`, `shortUrls`, `devPort`, `globals`,
+`pluginSourcePolicy`) belongs at the top level, not under `custom`.
 
 ## Plugin source policy
 
@@ -107,20 +130,20 @@ HTTP(S), and `node:` specifiers require an explicit opt-in; `data:` and `blob:`
 are never allowed.
 
 ```yaml
-custom:
-  pluginSourcePolicy:
-    allowLocal: true
-    allowRemoteHttp: false
-    allowNodeBuiltins: false
-    allowThemePlugins: true # default
+pluginSourcePolicy:
+  allowLocal: true
+  allowRemoteHttp: false
+  allowNodeBuiltins: false
+  allowThemePlugins: true # default
 ```
 
 These settings are source filters rather than a runtime sandbox. They do not
 inspect transitive imports or reduce plugin permissions. All configured and
 theme-bundled plugins run in-process with the permissions granted to Steno.
 
-The historical `custom.pluginSecurity` name remains accepted as a deprecated
-compatibility alias. New projects should use `custom.pluginSourcePolicy`.
+The historical `custom.pluginSourcePolicy` and `custom.pluginSecurity` names
+remain accepted as deprecated compatibility aliases. New projects should use
+top-level `pluginSourcePolicy`.
 
 `allowNodeBuiltins` controls only a configured top-level `node:` specifier. It
 cannot prevent a JSR, npm, file, or HTTP(S) plugin from importing a Node
@@ -161,8 +184,21 @@ deno x jsr:@steno/steno [build|dev|preview|doctor|help] [--config path] [--port 
 `build` is the default. `dev` watches and serves the site, `preview` serves the
 already-built production output without watching, and `doctor` reports common
 project/configuration problems; see [Doctor](doctor.md) for the full check list.
-`--port` selects the preview port, which defaults to 4173 and searches upward
-for the next available port the same way the dev server does. `preview` requires
-a prior `build`: it fails with an error naming the missing output directory if
-`dist/` does not exist yet. `preview` always binds to `127.0.0.1`; `dev` binds
-to `0.0.0.0`.
+`--port` only applies to `preview`; it selects that server's port, which
+defaults to 4173 and searches upward for the next available port the same way
+`dev` does. `dev`'s port comes from `devPort` in config instead (see above),
+since it has no `--port` flag of its own. `preview` requires a prior `build`: it
+fails with an error naming the missing output directory if `dist/` does not
+exist yet. `preview` always binds to `127.0.0.1`; `dev` binds to `0.0.0.0`.
+
+## See also
+
+- [Content](content.md) for frontmatter, `_data`, collections, and per-page
+  overrides via `steno.*` frontmatter.
+- [Themes and Tau](theme_development.md) and
+  [Theme specification](theme-specification.md) for what `theme`/`themeConfig`
+  feed into.
+- [Plugins](plugins.md) for the `plugins` list itself, beyond source policy.
+- [Doctor](doctor.md) to catch config issues (like `custom.*` nesting) before
+  they reach a build.
+- [Deploying](deploying.md) for `output` in the context of an actual host.

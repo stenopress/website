@@ -4,6 +4,37 @@ This document specifies Tau 0.9. Tau templates are UTF-8 text and use the `.tau`
 extension. Tau 0.9 is a superset of Tau 0.8: every Tau 0.8 template still parses
 and renders identically (see [Compatibility](#compatibility)).
 
+If you're using Tau through a Steno theme rather than the `render()` API
+directly, see [Themes and Tau](theme_development.md) instead - it covers the
+context a layout receives (`site`, `theme`, `assets`, ...) and is the faster
+path to a working template. This document is the language reference.
+
+## Quick example
+
+```tau
+<ul>
+  {#each posts as post, index}
+    <li class="{post.featured ? 'featured' : ''}">
+      {index + 1}. <a href="{post.url | url}">{post.title | upper}</a>
+      {#if post.date}<time>{post.date | date}</time>{/if}
+    </li>
+  {:else}
+    <li>No posts yet.</li>
+  {/each}
+</ul>
+```
+
+Given
+`posts = [{ title: "Hi", url: "/hi", date: "2026-01-05", featured: true }]`,
+this renders one `<li class="featured">` with an uppercased title, a validated
+link, and a localized date. An empty or missing `posts` renders the `{:else}`
+branch instead. Note that expressions always sit inside quotes in an attribute
+(`class="{...}"`), even though `{expression}` and `{expr}` look identical either
+way - see [Escaping and output contexts](#escaping-and-output-contexts) for why.
+The rest of this document covers each piece in detail:
+[expressions](#expressions), [filters](#built-in-filters),
+[control flow](#control-flow), and [components](#components).
+
 ## Grammar
 
 The grammar uses an EBNF-like notation. `expression` is the restricted
@@ -17,7 +48,7 @@ template        = { text | interpolation | raw_html | include | comment
 interpolation   = "{", expression, { "|", filter }, "}" ;
 filter          = identifier, [ "(", [ expression, { ",", expression } ], ")" ] ;
 raw_html        = "{@html ", expression, "}" ;
-include         = "&#123;@include ", quoted_path, "}" ;
+include         = "{@include ", quoted_path, "}" ;
 comment         = "{#", { any character except "#}" }, "#}" ;
 if_block        = "{", ["-"], "#if ", expression, ["-"], "}", template,
                   { "{", ["-"], ":else if ", expression, ["-"], "}", template },
@@ -78,10 +109,26 @@ scope, the same way a real `for...of` or `const` binding would.
 Tau hardening is defense in depth for trusted theme templates. The expression
 subset is not an isolation boundary for arbitrary hostile code.
 
+Property access supports both dot and bracket form, and both can be made
+optional with `?.`:
+
+```tau
+{user.name}
+{user["name"]}
+{assets['style.css']}
+{user?.name}
+{settings?.["theme"]}
+```
+
+`?.` (plain or bracket) short-circuits to `undefined` - without throwing - when
+the object it's accessed on is `null` or `undefined`, the same as in JavaScript.
+Plain `.`/`[]` access on a `null`/`undefined` object is a render error (see
+[Values](#values)).
+
 ### Async function calls
 
 A call in an expression (`{fn()}`, `{obj.method(arg)}`) is always awaited, so a
-context-supplied function may be sync or async without any special syntax —
+context-supplied function may be sync or async without any special syntax -
 `await` itself remains rejected as expression syntax. Filters registered on the
 `filters` export may also return a promise; it is awaited the same way.
 `render()` is therefore always `async` and returns `Promise<string>`.
@@ -97,7 +144,7 @@ render({
 ## Local bindings
 
 `{#let name = expression}` computes `expression` once and binds it to `name` for
-the rest of the enclosing block — the same each/if/component nesting a `{#each}`
+the rest of the enclosing block - the same each/if/component nesting a `{#each}`
 item variable would use. It does not need a closing tag; `name` stops being
 visible at the end of the block it appears in (end of the template, or the
 enclosing `{#if}`/`{#each}`/component-children block).
@@ -115,7 +162,7 @@ cannot start with `__tau`.
 ## Control flow
 
 `{#each items as item}...{:else}...{/each}` renders the `{:else}` branch when
-`items` is nullish, non-iterable, or empty — the loop body never ran. This
+`items` is nullish, non-iterable, or empty - the loop body never ran. This
 mirrors `{#if}`'s `{:else}` but keys off iteration count instead of a boolean.
 
 ```tau
@@ -130,8 +177,8 @@ mirrors `{#if}`'s `{:else}` but keys off iteration count instead of a boolean.
 
 A component tag is either self-closing (`<Card title={title} />`) or carries
 children (`<Card title={title}>{@html body}</Card>`). Children are compiled in
-the _caller's_ scope — they can reference the surrounding `{#each}` item,
-`{#let}` bindings, and page context — and rendered once, before the component
+the _caller's_ scope - they can reference the surrounding `{#each}` item,
+`{#let}` bindings, and page context - and rendered once, before the component
 template runs. The component template retrieves the rendered children with
 `{@children}`, a zero-argument tag equivalent to `{@html children}`:
 
@@ -258,7 +305,14 @@ patch releases. Source-backed parse errors also expose `filePath`, `line`, and
 
 Tau follows Steno's compatibility policy. The executable fixtures under
 `src/utils/fixtures/tau/` record output and error-code behavior for each
-released Tau language line. Tau 0.9 is purely additive over 0.8 — every
+released Tau language line. Tau 0.9 is purely additive over 0.8 - every
 construct in `v0.8.json` still produces the same output or error code; new
 behavior (comments, `{#let}`, each/`{:else}`, component children, whitespace
 control, async calls) is covered separately in `v0.9.json`.
+
+## See also
+
+- [Themes and Tau](theme_development.md) for the context a theme layout or
+  component receives, and how `{@include}` differs from `<Component />`.
+- [API reference](api_reference.md#tau) for calling `render()` directly and
+  registering custom filters on the `filters` export.
