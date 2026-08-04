@@ -16,9 +16,9 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
-    <link rel="stylesheet" href="/assets/style.css" />
-    <link rel="stylesheet" href="/assets/concept.css" />
-    <script src="/assets/concept.js" defer></script>
+    <link rel="stylesheet" href="/assets/{assets?.['style.css']}" />
+    <link rel="stylesheet" href="/assets/{assets?.['concept.css']}" />
+    <script src="/assets/{assets?.['concept.js']}" defer></script>
   </head>
   <body class="docs-page">
     <header class="site-document-header">

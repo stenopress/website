@@ -16,10 +16,9 @@ plugins:
 contentDir: "content"
 output: "dist"
 
-custom:
-  shortUrls: true
-  theme: "./theme"
-  themeConfig:
-    contentDriven: true
-    githubUrl: "https://github.com/stenopress/steno"
-    jsrUrl: "https://jsr.io/@steno/steno"
+shortUrls: true
+theme: "./theme"
+themeConfig:
+  contentDriven: true
+  githubUrl: "https://github.com/stenopress/steno"
+  jsrUrl: "https://jsr.io/@steno/steno"
