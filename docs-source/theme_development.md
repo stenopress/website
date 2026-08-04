@@ -107,7 +107,7 @@ Use `{@html expression}` only for trusted HTML, such as Steno's generated
 defaults and edge-case behavior. Invoke a component with `<Header />`; props may
 be literals, expressions (`title={title}`), or shorthand (`{title}`).
 
-`{@include "name"}` in a theme resolves a registered component name through the
+`&#123;@include "name"}` in a theme resolves a registered component name through the
 theme renderer. For Markdown source-file includes, see [Content](content.md).
 
 ## Sharing boilerplate across layouts
@@ -119,7 +119,7 @@ layout in a theme.
 
 The key difference from a `<Component />` invocation is context: a component
 only receives its explicit props plus `site`/`theme`/`globals` (see
-[Layout context](#layout-context) above), but `{@include "name"}` inherits the
+[Layout context](#layout-context) above), but `&#123;@include "name"}` inherits the
 **full** context of the template that includes it - the same `title`,
 `description`, and other page frontmatter a layout itself sees. Register the
 shared block as an ordinary component and pull it in with `{@include}` instead
@@ -144,7 +144,7 @@ components:
 ```html
 <!-- layouts/article.tau -->
 <html>
-  {@include "Head"}
+  &#123;@include "Head"}
   <meta property="og:type" content="article" />
   <body>{@html content}</body>
 </html>

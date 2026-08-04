@@ -8,16 +8,24 @@
       href: /docs/config_reference/
     - title: Doctor
       href: /docs/doctor/
+    - title: Troubleshooting
+      href: /docs/troubleshooting/
+    - title: Glossary
+      href: /docs/glossary/
 - label: Build sites
   links:
     - title: Content
       href: /docs/content/
+    - title: Recipes
+      href: /docs/recipes/
     - title: Theme development
       href: /docs/theme_development/
     - title: Theme specification
       href: /docs/theme-specification/
     - title: Tau syntax
       href: /docs/tau_syntax/
+    - title: Deploying
+      href: /docs/deploying/
 - label: Extend Steno
   links:
     - title: Plugins

@@ -64,7 +64,7 @@ expression may call a context-supplied function that returns a promise
 (`{someAsyncFn()}`); the result is awaited implicitly, so a sync function works
 the same way. Filters may also return a promise. `components` is required (use
 `{}` when none). `includeResolver` is a caller-supplied
-`(path: string) => string` function that resolves `{@include "path"}` directives
+`(path: string) => string` function that resolves `&#123;@include "path"}` directives
 to template source; it is required only when a template uses `{@include}`, and
 API consumers rendering templates directly (outside a theme) provide their own.
 `filters` is the mutable null-prototype map of built-in filter functions,

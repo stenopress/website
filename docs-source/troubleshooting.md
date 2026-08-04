@@ -45,7 +45,7 @@ page with no `layout` set uses `layout`, so a theme always needs at least
 
 ## "Component "X" not found in theme ..." / "Include "X" not found in theme ..."
 
-Same idea as a missing layout, but for `<X />` or `{@include "X"}` in a
+Same idea as a missing layout, but for `<X />` or `&#123;@include "X"}` in a
 template. Components must be declared under `components:` in `theme.yaml` (or in
 the theme's `StenoTheme` object if it's module based) before a template can
 reference them. Check the spelling and capitalization, a `theme.yaml` key of
