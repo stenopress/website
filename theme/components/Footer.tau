@@ -1,0 +1,14 @@
+<footer class="site-document-footer">
+  <div>
+    <a href="/"><img src="/assets/steno-logo.svg" alt="Steno" /></a>
+    <p>Fast, configurable static site generation powered by Deno.</p>
+  </div>
+  <nav aria-label="Footer navigation">
+    <a href="/themes/">Themes</a>
+    <a href="/plugins/">Plugins</a>
+    <a href="/docs/">Documentation</a>
+    <a href={theme.githubUrl}>GitHub</a>
+    <a href={theme.jsrUrl}>JSR</a>
+  </nav>
+  <p>MIT licensed · Built with Steno</p>
+</footer>

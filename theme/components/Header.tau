@@ -1,0 +1,15 @@
+<header class="site-document-header">
+  <div class="site-document-header-inner">
+    <a class="site-document-brand" href="/" aria-label="Steno home"><img src="/assets/steno-logo.svg" alt="Steno" /></a>
+    <nav aria-label="Main navigation">
+      <a href="/themes/">Themes</a>
+      <a href="/plugins/">Plugins</a>
+      <a href="/docs/">Docs</a>
+      <button class="docs-search-trigger" type="button" data-search-open><span>Search docs</span><kbd>⌘ K</kbd></button>
+    </nav>
+    <div class="site-document-actions">
+      <a href={theme.githubUrl}>GitHub</a>
+      <a class="site-document-cta" href={theme.jsrUrl}>View on JSR <span>↗</span></a>
+    </div>
+  </div>
+</header>

@@ -14,7 +14,6 @@ layout: landing
           <code>deno create jsr:@steno/init</code>
           <span>Copy</span>
         </button>
-        <a class="text-action" href="https://github.com/stenopress/steno">Read the docs <span>↗</span></a>
       </div>
       <div class="trust-row" aria-label="Project highlights">
         <span>MIT licensed</span>
@@ -96,7 +95,7 @@ Write Markdown. Ship a website.</code></pre>
     <div class="proof-message">
       <h2>Four thousand pages. Less than half a second.</h2>
       <p>Steno tracks cold, warm, incremental, pipeline, and Tau performance in CI. Results are recorded with the test machine and Deno version, so the numbers stay honest.</p>
-      <a href="https://github.com/stenopress/steno/blob/main/docs/benchmarks.md">Read the benchmark methodology <span>↗</span></a>
+      <a href="/docs/benchmarks/">Read the benchmark methodology <span>→</span></a>
     </div>
     <div class="metric-panel">
       <div class="primary-metric">
@@ -160,7 +159,7 @@ Write Markdown. Ship a website.</code></pre>
         <img src="/assets/tau.svg" alt="Tau" />
         <h2>Markup that looks like the page it creates.</h2>
         <p>Tau combines layouts, components, conditions, collections, includes, filters, and contextual escaping in a compact compiled template language.</p>
-        <a href="https://github.com/stenopress/steno/blob/main/docs/tau_syntax.md">Explore Tau syntax <span>↗</span></a>
+        <a href="/docs/tau_syntax/">Explore Tau syntax <span>→</span></a>
       </div>
       <div class="tau-playground" data-tau-playground>
         <div class="playground-pane"><div class="code-tabs"><span>layouts/article.tau</span><small>Editable</small></div><textarea aria-label="Tau template" data-tau-input>{#if title}
@@ -176,7 +175,7 @@ Write Markdown. Ship a website.</code></pre>
     <div class="theme-lab" data-theme-lab>
       <div class="theme-lab-heading"><h2>Begin with a theme. Make it yours.</h2><div class="theme-controls"><div><button class="active" type="button" data-theme-name="minimal">Minimal</button><button type="button" data-theme-name="docs">Docs</button><button type="button" data-theme-name="marketing">Marketing</button></div><div><button class="active" type="button" data-theme-size="desktop">Desktop</button><button type="button" data-theme-size="mobile">Mobile</button></div></div></div>
       <div class="real-theme-preview"><iframe title="Live theme preview" data-theme-frame></iframe></div>
-      <div class="theme-package"><span data-theme-label>Minimal</span><code data-theme-package>@steno/theme-minimal</code><a href="/docs/theme_development/">Build your own <span>↗</span></a></div>
+      <div class="theme-package"><span data-theme-label>Minimal</span><code data-theme-package>@steno/theme-minimal</code><a href="/docs/theme_development/">Build your own <span>→</span></a></div>
     </div>
 </div>
 </section>
