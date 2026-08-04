@@ -1,8 +1,15 @@
 # Doctor
 
-`deno x jsr:@steno/steno doctor` inspects a configured project and prints a
-report without building it. It exits after printing; it does not modify the
-project.
+Not sure why your site won't build, or want a second opinion before you ship?
+Run:
+
+```sh
+deno x jsr:@steno/steno doctor
+```
+
+It inspects your project and prints a report, without building anything or
+changing a single file. Below is exactly what it checks and how to read the
+result.
 
 ## Checks
 
@@ -15,9 +22,9 @@ project.
   exists; it is created on build either way.
 - **Data directory**: informational. Reports whether `contentDir/_data` exists;
   it is optional.
-- **Theme**: warns if no `custom.theme` is declared, since pages then render as
-  plain HTML with no layout. If the theme is a local path (starts with `.` or
-  `/`), fails when that directory does not exist.
+- **Theme**: warns if no `theme` is declared, since pages then render as plain
+  HTML with no layout. If the theme is a local path (starts with `.` or `/`),
+  fails when that directory does not exist.
 - **Plugins**: reports the declared count, and how many are `isolated` versus
   `trusted`. Trusted plugins produce a warning, since they run in-process with
   Steno's own Deno permissions. Each plugin specifier is checked against the
