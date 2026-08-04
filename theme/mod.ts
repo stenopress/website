@@ -22,10 +22,6 @@ const theme: StenoTheme = {
     ...baseTheme.assets,
     "concept.css": new URL("./assets/concept.css", import.meta.url),
     "concept.js": new URL("./assets/concept.js", import.meta.url),
-    "docs-search.json": new URL(
-      "./assets/docs-search.json",
-      import.meta.url,
-    ),
   },
 };
 

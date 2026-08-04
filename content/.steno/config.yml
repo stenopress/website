@@ -8,6 +8,11 @@ plugins:
     options:
       sourceDir: "docs-source"
       descriptionTemplate: "{title}, from the Steno documentation."
+  - package: "jsr:@steno/plugin-search@^0.1.1"
+    mode: trusted
+    options:
+      indexPath: "assets/docs-search.json"
+
 contentDir: "content"
 output: "dist"
 
