@@ -1,60 +1,52 @@
-<div align="center">
-
 # Steno Website
 
-The marketing and documentation site for [Steno](https://github.com/stenopress/steno).
-Built with Steno itself, using the `@steno/theme-marketing-minimal` theme.
+This repository contains the Steno marketing site and documentation site.
 
-</div>
+## Tech stack
 
-## Structure
+- [Deno](https://deno.com/)
+- [Steno](https://github.com/stenopress/steno)
+- `@steno/theme-marketing-minimal`
+
+## Local development
+
+```sh
+deno task dev
+```
+
+This starts the local development server.
+
+## Production build
+
+```sh
+deno task build
+```
+
+The static output is written to `dist/`.
+
+## Project structure
 
 ```text
 .
-├── content/
-│   ├── .steno/config.yml       site config
-│   ├── _data/                  themes.yml, plugins.yml, features.yml, nav
-│   ├── index.md                landing page
-│   ├── themes.md                /themes
-│   └── plugins.md               /plugins
-├── docs-source/                vendored copy of stenopress/steno's docs/
-├── scripts/
-│   └── sync_docs.ts            turns docs-source/ into content/docs/
-├── theme/
-│   ├── assets/                 concept.css, concept.js, search index
-│   ├── layouts/                landing, docs, themes, plugins
-│   └── mod.ts                  extends the official marketing theme
-└── deno.json
+├── content/                  Site content and docs pages
+│   ├── .steno/config.yml     Steno config
+│   ├── _data/                Data files for themes and plugins pages
+│   └── docs/                 Rendered documentation pages
+├── docs-source/              Source docs synced from steno releases
+├── theme/                    Custom theme extension and assets
+├── dist/                     Build output
+└── .github/workflows/        Automation workflows
 ```
 
-## Commands
+## Docs sync workflow
 
-```sh
-deno task dev      # local dev server
-deno task build    # production build
-```
+`docs-source/` is updated by `.github/workflows/sync-docs.yml`.
 
-Both run `docs:sync` first, regenerating `content/docs/` from `docs-source/`.
+The workflow:
 
-## How the docs stay fresh
+1. Fetches the latest GitHub release tag from `stenopress/steno`.
+2. Checks out that release tag and copies its `docs/` folder.
+3. Opens or updates a PR in this repository when `docs-source/` changes.
 
-`docs-source/` is a snapshot, not a live link, of the upstream
-[steno](https://github.com/stenopress/steno) repo's `docs/` folder. A weekly
-GitHub Action ([`sync-docs`](.github/workflows/sync-docs.yml)) checks
-upstream and opens a PR here when something changed. Review the diff before
-merging: a doc rename or removal upstream can break a `/docs/*` route.
-Trigger it manually from the Actions tab any time.
-
-## Adding a theme or plugin
-
-`/themes` and `/plugins` render from `content/_data/themes.yml` and
-`content/_data/plugins.yml`. Add an entry under `community:` in either file
-and open a PR to get listed.
-
-## A quirk worth knowing
-
-Site CSS/JS live in `theme/assets/`, served through the theme's own `assets`
-map instead of the usual `content/public/` passthrough. The published
-`@steno/steno@0.10.0` on JSR predates that passthrough feature, so this is
-the workaround until a release ships it. Safe to move back to
-`content/public/` once it does.
+If your repository does not allow PR creation with `GITHUB_TOKEN`, add a
+`DOCS_SYNC_TOKEN` secret with `repo` scope.
