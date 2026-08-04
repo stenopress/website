@@ -45,13 +45,45 @@ jobs:
           printf "%s\n" "${{ steps.release.outputs.tag }}" > docs-source/.upstream-release
           rm -rf upstream-steno
 
+      - name: Escape literal {@include "..."} examples
+        # Steno's own Tau docs demonstrate `{@include "path"}` as prose - left
+        # unescaped, Steno's content-level include scanner (which runs on raw
+        # Markdown, code fences included) tries to resolve those as real
+        # includes and hard-fails the build. Every occurrence found in this
+        # docs-source corpus so far has been illustrative, never a real
+        # include, so this blanket escape is safe here. See
+        # docs-source/content.md#markdown-includes for the mechanism.
+        run: |
+          perl -pi -e 's/\{(\@include\s+"[^"]*")\}/&#123;$1}/g' docs-source/*.md
+
+      - name: Set up Deno
+        uses: denoland/setup-deno@v2
+        with:
+          deno-version: v2.x
+
+      - name: Reconcile docs navigation
+        # Adds any docs-source page missing from the sidebar nav (under an
+        # "Unsorted (needs placement)" section, so a new page is never
+        # silently orphaned) and drops nav entries for pages upstream
+        # removed. See .github/scripts/sync_docs_navigation.ts.
+        run: deno run -A .github/scripts/sync_docs_navigation.ts
+
       - name: Check for changes
         id: diff
         run: |
-          if git diff --quiet -- docs-source; then
+          if git diff --quiet -- docs-source content/_data/docs_navigation.yml; then
             echo "changed=false" >> "$GITHUB_OUTPUT"
           else
             echo "changed=true" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Check for unsorted navigation entries
+        id: unsorted
+        run: |
+          if grep -q '^- label: Unsorted (needs placement)$' content/_data/docs_navigation.yml; then
+            echo "found=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "found=false" >> "$GITHUB_OUTPUT"
           fi
 
       - name: Open pull request
@@ -65,7 +97,10 @@ jobs:
             Automated sync of `docs-source/` from the latest published
             [stenopress/steno](https://github.com/stenopress/steno)
             GitHub release (`${{ steps.release.outputs.tag }}`), using that
-            tag as the source of `docs/`.
+            tag as the source of `docs/`. Literal `{@include "..."}` examples
+            were escaped and `content/_data/docs_navigation.yml` was
+            reconciled with the synced pages automatically.
+            ${{ steps.unsorted.outputs.found == 'true' && '⚠️ New pages landed in an "Unsorted (needs placement)" nav section - move them into the right place before merging.' || '' }}
             Review the diff before merging — a doc rename or removal can
             break `/docs/*` routes here.
           branch: sync-docs-source

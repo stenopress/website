@@ -15,6 +15,7 @@
     "jsr:@std/path@^1.1.6": "1.1.6",
     "jsr:@std/toml@1.0.11": "1.0.11",
     "jsr:@std/yaml@1.1.2": "1.1.2",
+    "jsr:@std/yaml@^1.1.2": "1.1.2",
     "jsr:@steno/plugin-docs@0.1": "0.1.0",
     "jsr:@steno/plugin-search@~0.1.1": "0.1.1",
     "jsr:@steno/steno@~0.11.1": "0.11.1",
@@ -102,7 +103,7 @@
         "jsr:@deno/emit",
         "jsr:@std/path@1.1.6",
         "jsr:@std/toml",
-        "jsr:@std/yaml",
+        "jsr:@std/yaml@1.1.2",
         "npm:marked"
       ]
     },
