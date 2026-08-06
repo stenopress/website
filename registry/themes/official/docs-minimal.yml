@@ -1,0 +1,19 @@
+name: Docs Minimal
+package: "@steno/theme-docs-minimal"
+label: Docs
+description: >-
+  A dense, navigable documentation theme that keeps long-form technical
+  content readable.
+install: "theme: jsr:@steno/theme-docs-minimal@^0.10.0"
+sourceUrl: https://github.com/stenopress/steno/tree/main/packages/theme-docs-minimal
+moduleSpecifier: "jsr:@steno/theme-docs-minimal@^0.10.0"
+demoFrontmatter:
+  title: Build your first Steno site
+demoBody: |-
+  # Build your first Steno site
+
+  Everything you need to go from Markdown to a production-ready static website.
+
+  ```
+  deno task dev
+  ```

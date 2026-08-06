@@ -1,0 +1,8 @@
+name: SEO
+package: "@steno/plugin-seo"
+label: SEO
+description: >-
+  Generates a sitemap, RSS and Atom feeds, and robots.txt from your site's
+  pages during afterBuild.
+install: "jsr:@steno/plugin-seo"
+sourceUrl: https://jsr.io/@steno/plugin-seo

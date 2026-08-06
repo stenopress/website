@@ -1,0 +1,8 @@
+name: Docs sync
+package: "@steno/plugin-docs"
+label: Content
+description: >-
+  Mirrors markdown from an external directory (like a repo-root docs/ folder)
+  into contentDir before each build, rewriting relative links to routes.
+install: "jsr:@steno/plugin-docs"
+sourceUrl: https://jsr.io/@steno/plugin-docs
