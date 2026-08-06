@@ -1,0 +1,8 @@
+name: Shiki syntax highlighting
+package: "@steno/plugin-shiki"
+label: Code
+description: >-
+  Highlights fenced code blocks with the same grammars and themes as VS Code,
+  applied as an HTML transform on page and collection content.
+install: "jsr:@steno/plugin-shiki"
+sourceUrl: https://jsr.io/@steno/plugin-shiki

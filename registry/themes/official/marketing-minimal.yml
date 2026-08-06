@@ -1,0 +1,15 @@
+name: Marketing Minimal
+package: "@steno/theme-marketing-minimal"
+label: Marketing
+description: >-
+  A content-driven landing-page theme with responsive product sections, code
+  examples, and calls to action.
+install: "theme: jsr:@steno/theme-marketing-minimal@^0.10.0"
+sourceUrl: https://github.com/stenopress/steno/tree/main/packages/theme-marketing-minimal
+moduleSpecifier: "jsr:@steno/theme-marketing-minimal@^0.10.0"
+demoFrontmatter:
+  title: Build fast. Ship safely.
+demoBody: |-
+  # Build fast. Ship safely.
+
+  Fast, configurable static site generation with transactional output.

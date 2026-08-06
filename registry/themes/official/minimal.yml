@@ -1,0 +1,16 @@
+name: Minimal
+package: "@steno/theme-minimal"
+label: Default
+description: >-
+  A quiet starting point for personal sites, journals, portfolios, and
+  single-author blogs.
+install: "theme: jsr:@steno/theme-minimal@^0.10.0"
+sourceUrl: https://github.com/stenopress/steno/tree/main/packages/theme-minimal
+moduleSpecifier: "jsr:@steno/theme-minimal@^0.10.0"
+demoFrontmatter:
+  title: A quiet place for words.
+  date: April 18, 2026
+demoBody: |-
+  # A quiet place for words.
+
+  <small>A clean, focused starting point for personal sites, journals, portfolios, and blogs.</small>

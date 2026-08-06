@@ -1,0 +1,8 @@
+name: OG image generation
+package: "@steno/plugin-og"
+label: SEO
+description: >-
+  Auto-generates an SVG Open Graph preview image per page and injects the
+  og:image meta tags, skipping pages that already declare their own.
+install: "jsr:@steno/plugin-og"
+sourceUrl: https://jsr.io/@steno/plugin-og
