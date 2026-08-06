@@ -1,0 +1,27 @@
+name: Validate plugins registry
+
+on:
+  pull_request:
+    paths:
+      - "registry/plugins/**"
+      - "scripts/generate_plugins.ts"
+
+permissions:
+  contents: read
+
+jobs:
+  plugins:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Deno
+        uses: denoland/setup-deno@v2
+        with:
+          deno-version: v2.x
+
+      - name: Generate plugins data
+        # Fails the PR if a registry file can't be parsed or is missing a
+        # required field.
+        run: deno task plugins
