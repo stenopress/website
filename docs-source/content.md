@@ -95,11 +95,11 @@ templates; only the fields you set inside it are.
 
 ## Markdown includes
 
-Write `&#123;@include "snippet.md"}` inside a Markdown file to pull another
-file's content in at that spot, before Markdown is even parsed. Steno looks for
-the file next to the current one first, then falls back to `contentDir`. An
-absolute path is rejected, and including a file that (directly or indirectly)
-includes itself back is an error rather than an infinite loop.
+Write `&#123;@include "snippet.md"}` inside a Markdown file to pull another file's
+content in at that spot, before Markdown is even parsed. Steno looks for the
+file next to the current one first, then falls back to `contentDir`. An absolute
+path is rejected, and including a file that (directly or indirectly) includes
+itself back is an error rather than an infinite loop.
 
 ## Data files
 
