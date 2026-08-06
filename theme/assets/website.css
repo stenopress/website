@@ -968,6 +968,17 @@ body {
   font-family: inherit;
   font-size: 13px;
   cursor: not-allowed;
+  text-decoration: none;
+  display: inline-block;
+}
+
+.button-secondary[href] {
+  cursor: pointer;
+}
+
+.button-secondary[href]:hover {
+  border-color: var(--landing-purple);
+  color: var(--landing-purple);
 }
 
 .registry-empty {
