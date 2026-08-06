@@ -37,7 +37,9 @@ const CATEGORIES = ["official", "community"] as const;
 type Category = (typeof CATEGORIES)[number];
 
 /** Reads and parses every `*.yml` registry file in a category, sorted by filename. */
-async function loadCategory(category: Category): Promise<{ file: string; spec: PluginSpec }[]> {
+async function loadCategory(
+  category: Category,
+): Promise<{ file: string; spec: PluginSpec }[]> {
   const dirUrl = new URL(`${category}/`, REGISTRY_ROOT);
   const entries: { file: string; spec: PluginSpec }[] = [];
   try {
@@ -49,7 +51,9 @@ async function loadCategory(category: Category): Promise<{ file: string; spec: P
       const file = `${category}/${entry.name}`;
       for (const field of REQUIRED_FIELDS) {
         if (!spec[field]) {
-          throw new Error(`Registry file ${file} is missing required field "${field}"`);
+          throw new Error(
+            `Registry file ${file} is missing required field "${field}"`,
+          );
         }
       }
       entries.push({ file, spec });
@@ -88,8 +92,7 @@ async function main() {
     sections.push(body ? `${category}:\n${body}` : `${category}: []`);
   }
 
-  const yaml =
-    `# GENERATED FILE - do not hand-edit.
+  const yaml = `# GENERATED FILE - do not hand-edit.
 # Produced by scripts/generate_plugins.ts from the registry files in
 # registry/plugins/official/ and registry/plugins/community/. To add or change
 # a plugin, edit those files and rerun \`deno task plugins\` (also run

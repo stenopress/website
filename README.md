@@ -46,13 +46,12 @@ The static output is written to `dist/`.
 
 ## Got a theme or plugin to share?
 
-Head to the [Themes](content/themes.md) or [Plugins](content/plugins.md) page
-on the live site and click "Add a community theme/plugin" — it opens a
-pre-filled file for you on GitHub, ready to submit as a PR. No local setup
-needed.
+Head to the [Themes](content/themes.md) or [Plugins](content/plugins.md) page on
+the live site and click "Add a community theme/plugin" - it opens a pre-filled
+file for you on GitHub, ready to submit as a PR. No local setup needed.
 
-Prefer doing it by hand? Drop a YAML file into `registry/themes/community/`
-or `registry/plugins/community/`:
+Prefer doing it by hand? Drop a YAML file into `registry/themes/community/` or
+`registry/plugins/community/`:
 
 ```yaml
 # registry/plugins/community/my-plugin.yml
@@ -81,22 +80,22 @@ demoBody: |-
   Whatever Markdown best shows off the theme.
 ```
 
-That's it — open a PR and a check runs automatically to make sure it renders.
+That's it - open a PR and a check runs automatically to make sure it renders.
 The site pulls in your entry the next time it builds, nothing else to touch.
 
 <details>
 <summary>How this works under the hood</summary>
 
 `content/_data/themes.yml` and `content/_data/plugins.yml` are generated,
-gitignored files — never edit them directly. `deno task build`/`dev` rebuild
-them from the `registry/` folder every time, via `scripts/generate_theme_previews.ts`
-and `scripts/generate_plugins.ts`. Theme previews are real renders (the
-script imports the theme package and runs it through Tau), not hand-typed
-HTML.
+gitignored files - never edit them directly. `deno task build`/`dev` rebuild
+them from the `registry/` folder every time, via
+`scripts/generate_theme_previews.ts` and `scripts/generate_plugins.ts`. Theme
+previews are real renders (the script imports the theme package and runs it
+through Tau), not hand-typed HTML.
 
 `.github/workflows/theme-previews.yml` and `.github/workflows/plugins.yml`
-re-run those scripts on any PR touching `registry/`, so a broken submission
-(bad YAML, package that doesn't resolve) fails the check before merge.
+re-run those scripts on any PR touching `registry/`, so a broken submission (bad
+YAML, package that doesn't resolve) fails the check before merge.
 
 </details>
 

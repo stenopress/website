@@ -101,7 +101,7 @@ jobs:
             were escaped and `content/_data/docs_navigation.yml` was
             reconciled with the synced pages automatically.
             ${{ steps.unsorted.outputs.found == 'true' && '⚠️ New pages landed in an "Unsorted (needs placement)" nav section - move them into the right place before merging.' || '' }}
-            Review the diff before merging — a doc rename or removal can
+            Review the diff before merging - a doc rename or removal can
             break `/docs/*` routes here.
           branch: sync-docs-source
           delete-branch: true

@@ -39,7 +39,9 @@ const CATEGORIES = ["official", "community"] as const;
 type Category = (typeof CATEGORIES)[number];
 
 /** Reads and parses every `*.yml` registry file in a category, sorted by filename. */
-async function loadCategory(category: Category): Promise<{ file: string; spec: ThemeSpec }[]> {
+async function loadCategory(
+  category: Category,
+): Promise<{ file: string; spec: ThemeSpec }[]> {
   const dirUrl = new URL(`${category}/`, REGISTRY_ROOT);
   const entries: { file: string; spec: ThemeSpec }[] = [];
   try {
@@ -124,7 +126,9 @@ async function renderCategory(category: Category): Promise<string> {
     try {
       previewHtml = await renderPreview(spec);
     } catch (err) {
-      throw new Error(`Failed to render theme registry file ${file}: ${err}`, { cause: err });
+      throw new Error(`Failed to render theme registry file ${file}: ${err}`, {
+        cause: err,
+      });
     }
     entries.push(
       [
@@ -149,8 +153,7 @@ async function main() {
     sections.push(body ? `${category}:\n${body}` : `${category}: []`);
   }
 
-  const yaml =
-    `# GENERATED FILE - do not hand-edit.
+  const yaml = `# GENERATED FILE - do not hand-edit.
 # Produced by scripts/generate_theme_previews.ts from the registry files in
 # registry/themes/official/ and registry/themes/community/. To add or change a
 # theme, edit those files and rerun \`deno task previews\` (also run
