@@ -45,7 +45,13 @@
         <div class="registry-section">
           <div class="registry-heading">
             <h2>Community</h2>
-            <button type="button" class="button-secondary" disabled title="Coming soon">Add a community plugin</button>
+            <a
+              class="button-secondary"
+              target="_blank"
+              rel="noopener"
+              title="Opens a prefilled file on GitHub - fill in the blanks and submit as a PR"
+              href="https://github.com/stenopress/website/new/main?filename=registry/plugins/community/YOUR-PLUGIN-SLUG.yml&value=name%3A%20My%20Plugin%0Apackage%3A%20%22%40me%2Fplugin-my-plugin%22%0Alabel%3A%20Category%0Adescription%3A%20A%20one-sentence%20pitch%20for%20what%20the%20plugin%20does.%0Ainstall%3A%20%22jsr%3A%40me%2Fplugin-my-plugin%22%0AsourceUrl%3A%20https%3A%2F%2Fgithub.com%2Fme%2Fplugin-my-plugin%0A"
+            >Add a community plugin</a>
           </div>
           <div class="choice-grid">
             {#each data.plugins.community as pkg}

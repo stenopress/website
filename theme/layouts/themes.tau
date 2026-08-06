@@ -46,7 +46,13 @@
         <div class="registry-section">
           <div class="registry-heading">
             <h2>Community</h2>
-            <button type="button" class="button-secondary" disabled title="Coming soon">Add a community theme</button>
+            <a
+              class="button-secondary"
+              target="_blank"
+              rel="noopener"
+              title="Opens a prefilled file on GitHub - fill in the blanks and submit as a PR"
+              href="https://github.com/stenopress/website/new/main?filename=registry/themes/community/YOUR-THEME-SLUG.yml&value=name%3A%20My%20Theme%0Apackage%3A%20%22%40me%2Ftheme-my-theme%22%0Alabel%3A%20Community%0Adescription%3A%20A%20one-sentence%20pitch%20for%20the%20theme.%0Ainstall%3A%20%22theme%3A%20jsr%3A%40me%2Ftheme-my-theme%40%5E1.0.0%22%0AsourceUrl%3A%20https%3A%2F%2Fgithub.com%2Fme%2Ftheme-my-theme%0AmoduleSpecifier%3A%20%22jsr%3A%40me%2Ftheme-my-theme%40%5E1.0.0%22%0AdemoFrontmatter%3A%0A%20%20title%3A%20Sample%20page%20title%0AdemoBody%3A%20%7C-%0A%20%20%23%20Sample%20page%20title%0A%0A%20%20Whatever%20Markdown%20best%20shows%20off%20the%20theme.%0A"
+            >Add a community theme</a>
           </div>
           <div class="choice-grid">
             {#each data.themes.community as pkg}
