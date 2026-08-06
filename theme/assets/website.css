@@ -9,6 +9,11 @@
   --landing-radius-sm: 5px;
   --landing-radius-md: 7px;
   --landing-radius-lg: 10px;
+  --text-xs: 0.75rem; /* 12px */
+  --text-sm: 0.8125rem; /* 13px */
+  --text-base: 0.9375rem; /* 15px */
+  --text-lg: 1.0625rem; /* 17px */
+  --text-xl: 1.25rem; /* 20px */
 }
 
 .docs-content article {
@@ -73,7 +78,7 @@ body {
   border-radius: var(--landing-radius-sm);
   color: var(--landing-muted);
   background: var(--landing-soft);
-  font-size: 11px;
+  font-size: var(--text-sm);
   cursor: pointer;
   border-color: transparent;
 }
@@ -85,14 +90,14 @@ body {
   color: var(--landing-muted);
   background: #fff;
   font-family: var(--font-mono);
-  font-size: 9px;
+  font-size: var(--text-xs);
   border-color: var(--landing-line);
 }
 
 .site-document-header a,
 .site-document-footer a {
   color: var(--landing-ink);
-  font-size: 11px;
+  font-size: var(--text-xs);
   font-weight: 700;
   text-decoration: none;
   text-transform: uppercase;
@@ -222,7 +227,7 @@ body {
 
 .docs-on-page a {
   color: var(--landing-muted);
-  font-size: 11px;
+  font-size: var(--text-xs);
   line-height: 1.45;
   text-decoration: none;
 }
@@ -545,7 +550,7 @@ body {
   display: flex;
   gap: 7px 16px;
   color: #675e80;
-  font-size: 9px;
+  font-size: var(--text-xs);
   flex-wrap: wrap;
 }
 
@@ -574,7 +579,7 @@ body {
   align-items: center;
   border-bottom: 1px solid #302c3c;
   font-family: var(--font-mono);
-  font-size: 10px;
+  font-size: var(--text-xs);
 }
 
 .demo-toolbar div {
@@ -601,7 +606,7 @@ body {
   gap: 18px;
   color: #777181;
   font-family: var(--font-mono);
-  font-size: 9px;
+  font-size: var(--text-xs);
 }
 
 .build-pipeline {
@@ -611,7 +616,7 @@ body {
   gap: 7px;
   border-bottom: 1px solid #302c3c;
   font-family: var(--font-mono);
-  font-size: 8px;
+  font-size: var(--text-xs);
   text-transform: uppercase;
 }
 
@@ -688,7 +693,7 @@ body {
   border-top: 1px solid #302c3c;
   background: #141219;
   font-family: var(--font-mono);
-  font-size: 10px;
+  font-size: var(--text-sm);
   position: relative;
 }
 
@@ -702,7 +707,7 @@ body {
   color: #cfc8dc;
   background: #24212b;
   font-family: var(--font-mono);
-  font-size: 8px;
+  font-size: var(--text-xs);
   cursor: pointer;
 }
 
@@ -728,7 +733,7 @@ body {
   gap: 8px;
   border-top: 1px solid #302c3c;
   font-family: var(--font-mono);
-  font-size: 9px;
+  font-size: var(--text-xs);
 }
 
 .demo-output span {
@@ -881,7 +886,7 @@ body {
 
 .choice-card li {
   color: #575361;
-  font-size: 13px;
+  font-size: var(--text-sm);
 }
 
 .choice-card li::before {
@@ -996,7 +1001,7 @@ body {
 
 .proof-section {
   padding: 66px 0;
-  color: #f3eff9;
+  color: var(--landing-muted);
   background: #fff;
   border: 0;
 }
@@ -1023,11 +1028,15 @@ body {
 
 .proof-message > p {
   margin: 24px 0;
-  color: #aaa4b3;
+  color: var(--landing-muted);
   line-height: 1.75;
 }
 
-.proof-message a,
+.proof-message a {
+  color: var(--landing-purple);
+  font-weight: 650;
+}
+
 .final-action a {
   color: white;
 }
@@ -1468,9 +1477,9 @@ body {
   display: flex;
   justify-content: space-between;
   border-bottom: 1px solid #302c3c;
-  color: #aaa4b3;
+  color: #c9c3d3;
   font-family: var(--font-mono);
-  font-size: 10px;
+  font-size: var(--text-xs);
 }
 
 .code-tabs small {
@@ -1722,7 +1731,7 @@ body {
 .final-card > div > p:last-child {
   max-width: 620px;
   margin-top: 16px;
-  color: #aaa4b3;
+  color: rgba(255, 255, 255, 0.85);
 }
 
 .final-action {
@@ -2055,8 +2064,9 @@ body {
 }
 
 .docs-search-trigger {
-  min-width: 34px;
-  width: 34px;
+  min-width: 44px;
+  width: 44px;
+  min-height: 44px;
   padding: 0;
   justify-content: center;
 }
@@ -2151,7 +2161,7 @@ body {
   min-width: 0;
   text-overflow: ellipsis;
   white-space: nowrap;
-  font-size: 9px;
+  font-size: var(--text-xs);
 }
 
 .build-demo {
@@ -2298,7 +2308,7 @@ body {
 
 .build-pipeline span {
   padding-inline: 3px;
-  font-size: 6px;
+  font-size: var(--text-xs);
 }
 
 .demo-code {
@@ -2308,7 +2318,7 @@ body {
 }
 
 .demo-code code {
-  font-size: 9px;
+  font-size: var(--text-xs);
 }
 
 .demo-terminal {
@@ -2321,7 +2331,7 @@ body {
 
 .demo-terminal p,
   .demo-output {
-  font-size: 8px;
+  font-size: var(--text-xs);
 }
 
 .split-intro,
@@ -2547,6 +2557,19 @@ body,
 .site-document-header a:not(.site-document-cta) {
   padding: 6px 8px;
   border-radius: var(--landing-radius-sm);
+}
+
+@media (pointer: coarse) {
+
+.site-document-header nav a,
+  .site-document-actions a,
+  .docs-sidebar a,
+  .docs-search-trigger {
+  min-height: 44px;
+  display: inline-flex;
+  align-items: center;
+}
+
 }
 
 .site-document-header a:not(.site-document-cta):hover {
