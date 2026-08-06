@@ -6,6 +6,8 @@
   --landing-purple: #6d50e6;
   --landing-purple-dark: #4f34c2;
   --landing-night: #191526;
+  --landing-danger: #c23a5e;
+  --landing-success: #2f7a51;
   --landing-radius-sm: 5px;
   --landing-radius-md: 7px;
   --landing-radius-lg: 10px;
@@ -146,7 +148,7 @@ body {
 
 .site-document-footer p {
   margin: 8px 0 0;
-  font-size: 11px;
+  font-size: var(--text-xs);
 }
 
 .docs-frame {
@@ -531,7 +533,7 @@ body {
   border-radius: var(--landing-radius-sm);
   color: white;
   background: var(--landing-purple);
-  font-size: 11px;
+  font-size: var(--text-xs);
   font-weight: 700;
 }
 
@@ -604,7 +606,7 @@ body {
   padding: 11px 18px 0;
   display: flex;
   gap: 18px;
-  color: #777181;
+  color: #aaa4b3;
   font-family: var(--font-mono);
   font-size: var(--text-xs);
 }
@@ -624,7 +626,7 @@ body {
   padding: 4px 6px;
   border: 1px solid #3b3644;
   border-radius: 3px;
-  color: #777181;
+  color: #aaa4b3;
   transition: 340ms ease;
 }
 
@@ -723,7 +725,7 @@ body {
 
 .demo-terminal p span {
   margin-left: 8px;
-  color: #777181;
+  color: #aaa4b3;
 }
 
 .demo-output {
@@ -1045,6 +1047,7 @@ body {
   overflow: hidden;
   border: 1px solid #383342;
   border-radius: var(--landing-radius-md);
+  color: #f2f0f5;
   background: #1d1a23;
   box-shadow: none;
 }
@@ -1060,7 +1063,7 @@ body {
   align-self: start;
   color: #aaa4b3;
   font-family: var(--font-mono);
-  font-size: 10px;
+  font-size: var(--text-xs);
   letter-spacing: 0.08em;
   text-transform: uppercase;
 }
@@ -1083,7 +1086,7 @@ body {
 
 .primary-metric p {
   margin: 8px 0 0;
-  color: #777181;
+  color: #aaa4b3;
   font-size: 13px;
 }
 
@@ -1109,8 +1112,8 @@ body {
 .metric-row span,
 .metric-row small,
 .metric-note {
-  color: #777181;
-  font-size: 10px;
+  color: #aaa4b3;
+  font-size: var(--text-xs);
 }
 
 .metric-row strong {
@@ -1204,7 +1207,7 @@ body {
 }
 
 .transaction-card[data-atomic-state="success"] .atomic-transfer {
-  color: #53a874;
+  color: var(--landing-success);
   transform: translateX(-3px);
 }
 
@@ -1235,8 +1238,13 @@ body {
   border-radius: 4px;
   color: var(--landing-muted);
   background: transparent;
-  font-size: 10px;
+  font-size: var(--text-xs);
   cursor: pointer;
+}
+
+.sandbox-terminal button {
+  border-color: #40394d;
+  color: #cfc8dc;
 }
 
 .demo-controls button:hover,
@@ -1252,7 +1260,7 @@ body {
   min-height: 36px;
   margin: 14px 0 0 !important;
   color: var(--landing-muted);
-  font-size: 11px !important;
+  font-size: var(--text-xs) !important;
 }
 
 .transaction-flow i {
@@ -1278,7 +1286,7 @@ body {
   border-radius: var(--landing-radius-sm);
   color: #625d69;
   font-family: var(--font-mono);
-  font-size: 9px;
+  font-size: var(--text-xs);
 }
 
 .permission-list button {
@@ -1291,13 +1299,13 @@ body {
 
 .permission-list button.granted {
   border-color: #48725a;
-  color: #53a874;
+  color: var(--landing-success);
   background: rgba(83, 168, 116, 0.08);
   transform: translateY(-2px);
 }
 
 .permission-list button.granted b {
-  color: #53a874;
+  color: var(--landing-success);
 }
 
 .sandbox-terminal {
@@ -1322,12 +1330,12 @@ body {
 
 .permission-list b {
   margin-right: 4px;
-  color: #d45d77;
+  color: var(--landing-danger);
 }
 
 .assurance-card > small {
-  color: #87818e;
-  font-size: 11px;
+  color: var(--landing-muted);
+  font-size: var(--text-xs);
 }
 
 .craft-section {
@@ -1573,7 +1581,7 @@ body {
 }
 
 .theme-package code {
-  font-size: 10px;
+  font-size: var(--text-xs);
 }
 
 .theme-package a {
@@ -2370,6 +2378,8 @@ body {
   --landing-purple: #9277f2;
   --landing-purple-dark: #b6a5ff;
   --landing-night: #111014;
+  --landing-danger: #e0708c;
+  --landing-success: #53a874;
 }
 
 body,
@@ -2388,6 +2398,10 @@ body,
   .site-document-footer img,
   .tau-copy > img {
   filter: invert(1) brightness(1.8);
+}
+
+.command-button span {
+  color: #17151d;
 }
 
 .site-document-cta,
@@ -2564,10 +2578,27 @@ body,
 .site-document-header nav a,
   .site-document-actions a,
   .docs-sidebar a,
-  .docs-search-trigger {
+  .docs-search-trigger,
+  .site-document-brand {
   min-height: 44px;
   display: inline-flex;
   align-items: center;
+}
+
+.site-document-footer nav a,
+.site-document-footer > div > a {
+  min-height: 44px;
+  padding: 6px 0;
+  display: inline-flex;
+  align-items: center;
+}
+
+.command-button,
+.demo-controls button,
+.theme-controls button,
+.permission-list button,
+[data-run-build] {
+  min-height: 44px;
 }
 
 }
