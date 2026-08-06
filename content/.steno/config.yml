@@ -12,6 +12,10 @@ plugins:
     mode: trusted
     options:
       indexPath: "assets/docs-search.json"
+  - package: "jsr:@steno/plugin-shiki@1.0.1"
+    mode: trusted
+    options:
+      theme: "kanagawa-wave"
 
 contentDir: "content"
 output: "dist"
