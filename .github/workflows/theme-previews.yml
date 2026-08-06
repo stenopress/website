@@ -1,0 +1,30 @@
+name: Validate theme previews
+
+on:
+  pull_request:
+    paths:
+      - "registry/themes/**"
+      - "scripts/generate_theme_previews.ts"
+      - "deno.json"
+      - "deno.lock"
+
+permissions:
+  contents: read
+
+jobs:
+  previews:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Deno
+        uses: denoland/setup-deno@v2
+        with:
+          deno-version: v2.x
+
+      - name: Generate theme previews
+        # Fails the PR if a registry file can't be parsed, its package can't
+        # be imported, or its layout can't render - the same check a full
+        # `deno task build` does, without needing the rest of the site.
+        run: deno task previews
