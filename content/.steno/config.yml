@@ -8,10 +8,12 @@ plugins:
     options:
       sourceDir: "docs-source"
       descriptionTemplate: "{title}, from the Steno documentation."
-  - package: "jsr:@steno/plugin-search@^0.1.1"
+  - package: "jsr:@steno/plugin-search@^0.2.0"
     mode: trusted
     options:
       indexPath: "assets/docs-search.json"
+      include:
+        - /docs/
   - package: "jsr:@steno/plugin-shiki@1.0.1"
     mode: trusted
     options:

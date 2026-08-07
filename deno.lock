@@ -18,6 +18,7 @@
     "jsr:@std/yaml@1.1.2": "1.1.2",
     "jsr:@std/yaml@^1.1.2": "1.1.2",
     "jsr:@steno/plugin-docs@0.1": "0.1.0",
+    "jsr:@steno/plugin-search@0.2": "0.2.0",
     "jsr:@steno/plugin-search@~0.1.1": "0.1.1",
     "jsr:@steno/plugin-shiki@1.0.1": "1.0.1",
     "jsr:@steno/steno@*": "0.11.1",
@@ -106,6 +107,12 @@
     },
     "@steno/plugin-search@0.1.1": {
       "integrity": "9e08bbba673af84d0bed0048136424291b3ca08d57ec12e31670400dcb4845cc",
+      "dependencies": [
+        "jsr:@std/path@^1.1.6"
+      ]
+    },
+    "@steno/plugin-search@0.2.0": {
+      "integrity": "1d2bf477a330c0255808c203e0a9624a40abd3669dd0eda4fa14f7370284cc37",
       "dependencies": [
         "jsr:@std/path@^1.1.6"
       ]
