@@ -100,15 +100,15 @@ Write Markdown. Ship a website.</code></pre>
     <div class="metric-panel">
       <div class="primary-metric">
         <span>Cold build</span>
-        <strong>454<small>ms</small></strong>
+        <strong>405<small>ms</small></strong>
         <p>4,000 Markdown pages</p>
       </div>
       <div class="metric-row">
-        <article><span>Cold build</span><strong>124ms</strong><small>1,000 pages</small></article>
-        <article><span>Warm build</span><strong>31ms</strong><small>1,000 unchanged</small></article>
-        <article><span>Tau render</span><strong>927ns</strong><small>simple template</small></article>
+        <article><span>Cold build</span><strong>102ms</strong><small>1,000 pages</small></article>
+        <article><span>Warm build</span><strong>32ms</strong><small>1,000 unchanged</small></article>
+        <article><span>Tau render</span><strong>902ns</strong><small>simple template</small></article>
       </div>
-      <p class="metric-note">Apple M5, Deno 2.9.2. Results vary by machine.</p>
+      <p class="metric-note">Apple M5, Deno 2.9.4. Results vary by machine.</p>
     </div>
   </div>
 </section>
