@@ -1,0 +1,7 @@
+name: SCSS
+package: "@steno/plugin-scss"
+label: SCSS
+description: >-
+  Adds SCSS support to your Steno project.
+install: "jsr:@steno/plugin-scss"
+sourceUrl: https://jsr.io/@steno/plugin-scss
