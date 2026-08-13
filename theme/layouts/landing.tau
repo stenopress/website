@@ -26,7 +26,7 @@
   </head>
   <body>
     <Header />
-    <main>
+    <main id="landing">
       {@html content}
       <section class="feature-index-section" id="capabilities">
         <div class="landing-shell">

@@ -29,10 +29,12 @@
       <aside class="docs-sidebar">
         <nav aria-label="Documentation navigation">
           {#each data.docs_navigation as section}
-            <strong>{section.label}</strong>
-            {#each section.links as link}
-              <a href={link.href}>{link.title}</a>
-            {/each}
+            <div class="docs-nav-group">
+              <strong>{section.label}</strong>
+              {#each section.links as link}
+                <a href={link.href}>{link.title}</a>
+              {/each}
+            </div>
           {/each}
         </nav>
       </aside>

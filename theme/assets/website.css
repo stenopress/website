@@ -160,12 +160,17 @@ body {
   border-color: var(--landing-line);
 }
 
+.site-document-footer > div {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
 .site-document-footer img {
   width: 82px;
 }
 
 .site-document-footer p {
-  margin: 8px 0 0;
   font-size: var(--text-sm);
 }
 
@@ -193,21 +198,24 @@ body {
   position: sticky;
   top: 32px;
   padding-right: 36px;
-  display: grid;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.docs-nav-group {
+  display: flex;
+  flex-direction: column;
   gap: 4px;
 }
 
 .docs-sidebar strong {
-  margin: 24px 0 7px;
+  padding-bottom: 3px;
   color: var(--landing-ink);
   font-family: var(--font-mono);
   font-size: var(--text-xs);
   letter-spacing: 0.08em;
   text-transform: uppercase;
-}
-
-.docs-sidebar strong:first-child {
-  margin-top: 0;
 }
 
 .docs-sidebar a {
@@ -233,6 +241,9 @@ body {
 
 .docs-on-page {
   padding-top: 52px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
 }
 
 .docs-on-page > strong {
@@ -246,7 +257,6 @@ body {
 .docs-on-page nav {
   position: sticky;
   top: 108px;
-  margin-top: 14px;
   display: grid;
   gap: 8px;
 }
@@ -492,7 +502,6 @@ body {
 
 .landing-hero {
   overflow: hidden;
-  padding: 0 0 54px;
   background: #fff;
 }
 
@@ -585,15 +594,12 @@ body {
 
 .hero-lede {
   max-width: 430px;
-  margin: 22px 0 0;
   color: #4f4864;
   font-size: var(--text-base);
   line-height: 1.48;
-  margin-top: 22px;
 }
 
 .hero-actions-row {
-  margin-top: 25px;
   display: flex;
   align-items: flex-start;
   flex-direction: column;
@@ -639,7 +645,6 @@ body {
 }
 
 .trust-row {
-  margin-top: 22px;
   display: flex;
   flex-wrap: wrap;
   gap: 7px 16px;
@@ -668,6 +673,12 @@ body {
 .build-demo {
   position: relative;
   z-index: 1;
+}
+
+.hero-message {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
 }
 
 .demo-toolbar {
@@ -794,6 +805,9 @@ body {
 .demo-terminal {
   position: relative;
   padding: 16px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
   border-top: 1px solid #383047;
   background: #141219;
   font-family: var(--font-mono);
@@ -820,7 +834,6 @@ body {
 }
 
 .demo-terminal p {
-  margin: 8px 0 0;
   color: #c9c3d3;
 }
 
@@ -859,13 +872,15 @@ body {
 .choice-section,
 .assurance-section,
 .craft-section {
-  padding: 64px 0;
   border: 0;
   background: #fff;
 }
 
-.section-intro {
-  margin-bottom: 30px;
+.choice-section > .landing-shell,
+.assurance-section > .landing-shell {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
 }
 
 .split-intro {
@@ -917,6 +932,7 @@ body {
   padding: 28px;
   display: flex;
   flex-direction: column;
+  gap: 12px;
   border: 0;
   border-right: 1px solid var(--landing-line);
   border-bottom: 1px solid var(--landing-line);
@@ -956,7 +972,7 @@ body {
 
 .choice-card h3,
 .assurance-card h3 {
-  margin: 32px 0 12px;
+  margin-top: 20px;
   color: var(--landing-ink);
   font-size: var(--text-2xl);
   letter-spacing: -0.04em;
@@ -974,7 +990,7 @@ body {
 .mini-code,
 .mini-editor {
   min-height: 82px;
-  margin-top: 28px;
+  margin-top: 16px;
   padding: 25px;
   display: flex;
   align-items: center;
@@ -1017,7 +1033,7 @@ body {
 }
 
 .card-thumb {
-  margin-top: 24px;
+  margin-top: 12px;
   height: 150px;
   overflow: hidden;
   border-radius: var(--landing-radius-md);
@@ -1034,7 +1050,7 @@ body {
 }
 
 .card-source {
-  margin-top: 18px;
+  margin-top: 6px;
   display: inline-flex;
   align-items: center;
   gap: 6px;
@@ -1066,12 +1082,19 @@ body {
   margin: 40px auto 0;
 }
 
+.page-content > .landing-shell {
+  display: flex;
+  flex-direction: column;
+  gap: 72px;
+}
+
 .registry-section {
-  margin-top: 72px;
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
 }
 
 .registry-heading {
-  margin-bottom: 28px;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -1123,7 +1146,6 @@ body {
 }
 
 .proof-section {
-  padding: 66px 0;
   border: 0;
   background: #fff;
   color: var(--landing-muted);
@@ -1140,8 +1162,13 @@ body {
   background: #eee9fb;
 }
 
+.proof-message {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
 .proof-message > p {
-  margin: 24px 0;
   color: var(--landing-muted);
   line-height: 1.75;
 }
@@ -1477,6 +1504,12 @@ body {
   background: #fff;
 }
 
+.craft-section > .landing-shell {
+  display: flex;
+  flex-direction: column;
+  gap: 54px;
+}
+
 .tau-showcase {
   display: grid;
   grid-template-columns: 0.75fr 1.25fr;
@@ -1488,18 +1521,18 @@ body {
   background: #f1edfc;
 }
 
+.tau-copy {
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+}
+
 .tau-copy > img {
   width: 68px;
-  margin-bottom: 24px;
   filter: brightness(0.25);
 }
 
-.tau-copy > p {
-  margin-top: 22px;
-}
-
 .tau-copy a {
-  margin-top: 24px;
   display: inline-block;
 }
 
@@ -1624,13 +1657,14 @@ body {
 }
 
 .theme-lab {
-  margin-top: 54px;
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
   border-top: 1px solid var(--landing-line);
   padding-top: 38px;
 }
 
 .theme-lab-heading {
-  margin-bottom: 28px;
   display: flex;
   align-items: end;
   justify-content: space-between;
@@ -1662,8 +1696,7 @@ body {
   border-radius: var(--landing-radius-md);
   background:
     linear-gradient(var(--landing-line) 1px, transparent 1px),
-    linear-gradient(90deg, var(--landing-line) 1px, transparent 1px),
-    var(--landing-soft);
+    linear-gradient(90deg, var(--landing-line) 1px, transparent 1px), var(--landing-soft);
   background-size: 32px 32px;
   box-shadow: 10px 10px 0 #e5def8;
 }
@@ -1832,12 +1865,16 @@ body {
 }
 
 .feature-index-section {
-  padding: 64px 0 72px;
   background: #fff;
 }
 
+.feature-index-section > .landing-shell {
+  display: flex;
+  flex-direction: column;
+  gap: 42px;
+}
+
 .feature-index-heading {
-  margin-bottom: 42px;
   display: grid;
   grid-template-columns: 1fr 0.65fr;
   align-items: end;
@@ -1887,7 +1924,6 @@ body {
 }
 
 .final-section {
-  padding: 44px 0 64px;
   background: #fff;
 }
 
@@ -1904,9 +1940,14 @@ body {
   box-shadow: none;
 }
 
+.final-card > div {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
 .final-card > div > p:last-child {
   max-width: 620px;
-  margin-top: 16px;
   color: #fff;
 }
 
@@ -2092,8 +2133,13 @@ body {
     position: static;
     padding: 0;
     display: flex;
+    flex-direction: row;
     overflow-x: auto;
     gap: 8px;
+  }
+
+  .docs-nav-group {
+    display: contents;
   }
 
   .docs-sidebar strong {
@@ -2401,12 +2447,7 @@ body {
 
   .landing-hero {
     background:
-      radial-gradient(
-      circle at 82% 12%,
-      rgba(139, 112, 239, 0.16),
-      transparent 30%
-    ),
-      #17151d;
+      radial-gradient(circle at 82% 12%, rgba(139, 112, 239, 0.16), transparent 30%), #17151d;
   }
 
   .craft-section {
@@ -2637,4 +2678,10 @@ body {
     transform: translateY(-50%);
     content: "";
   }
+}
+
+#landing {
+  display: flex;
+  flex-direction: column;
+  gap: 4rem;
 }
