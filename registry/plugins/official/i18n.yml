@@ -1,0 +1,7 @@
+name: i18n
+package: "@steno/plugin-i18n"
+label: i18n
+description: >-
+  Provides internationalization (i18n) support for your Steno project.
+install: "jsr:@steno/plugin-i18n"
+sourceUrl: https://jsr.io/@steno/plugin-i18n
