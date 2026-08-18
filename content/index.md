@@ -18,7 +18,7 @@ layout: landing
       <div class="trust-row" aria-label="Project highlights">
         <span>MIT licensed</span>
         <span>Powered by Deno</span>
-        <span>Snug Nook Approved</span>
+        <span><a href="https://snugnook.org/">Snug Nook</a> Approved</span>
       </div>
     </div>
     <div class="build-demo" aria-label="A Markdown page being built into HTML">
