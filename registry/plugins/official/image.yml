@@ -1,0 +1,8 @@
+name: Image optimization
+package: "@steno/plugin-image"
+label: Performance
+description: >-
+  Resizes images, generates high-compression WebP variants, and preserves
+  aspect ratios to keep layout shifts (CLS) at zero.
+install: "jsr:@steno/plugin-image"
+sourceUrl: https://jsr.io/@steno/plugin-image
