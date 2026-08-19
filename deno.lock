@@ -14,9 +14,12 @@
     "jsr:@std/media-types@1.1.0": "1.1.0",
     "jsr:@std/path@0.223": "0.223.0",
     "jsr:@std/path@1.1.6": "1.1.6",
+    "jsr:@std/path@^1.1.6": "1.1.6",
     "jsr:@std/toml@1.0.11": "1.0.11",
     "jsr:@std/yaml@1.2.0": "1.2.0",
     "jsr:@std/yaml@^1.1.2": "1.2.0",
+    "jsr:@steno/plugin-docs@0.1": "0.1.0",
+    "jsr:@steno/plugin-search@0.2": "0.2.0",
     "jsr:@steno/plugin-shiki@1.0.1": "1.0.1",
     "jsr:@steno/steno@0.12": "0.12.0",
     "jsr:@steno/theme-docs-minimal@0.10": "0.10.0",
@@ -96,6 +99,18 @@
     },
     "@std/yaml@1.2.0": {
       "integrity": "20beb41e4983ba3437dbefac62b14061ab058e8a187596f19d28ff9035f6e6cf"
+    },
+    "@steno/plugin-docs@0.1.0": {
+      "integrity": "53f89ff7e01e2c0d6925e26b7f9e0acd1672942fa5aff3b728af97ec786fd47a",
+      "dependencies": [
+        "jsr:@std/path@^1.1.6"
+      ]
+    },
+    "@steno/plugin-search@0.2.0": {
+      "integrity": "1d2bf477a330c0255808c203e0a9624a40abd3669dd0eda4fa14f7370284cc37",
+      "dependencies": [
+        "jsr:@std/path@^1.1.6"
+      ]
     },
     "@steno/plugin-shiki@1.0.1": {
       "integrity": "d2031f5ccd2839de152d8076a653455b46cd40e9eb45c7950f7cbe47e001d8ce",
