@@ -1,6 +1,6 @@
 <footer class="site-document-footer">
   <div>
-    <a href="/"><img src="/assets/steno-logo.svg" alt="Steno" /></a>
+    <a href="/"><img src="/assets/steno-logo.svg" alt="Steno" width="71" height="25" /></a>
     <p>Fast, configurable static site generation powered by Deno.</p>
   </div>
   <nav aria-label="Footer navigation">
