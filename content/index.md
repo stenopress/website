@@ -156,7 +156,7 @@ Write Markdown. Ship a website.</code></pre>
   <div class="landing-shell">
     <div class="tau-showcase">
       <div class="tau-copy">
-        <img src="/assets/tau.svg" alt="Tau" />
+        <img src="/assets/tau.svg" alt="Tau" width="114" height="42" />
         <h2>Markup that looks like the page it creates.</h2>
         <p>Tau combines layouts, components, conditions, collections, includes, filters, and contextual escaping in a compact compiled template language.</p>
         <a href="/docs/tau_syntax/">Explore Tau syntax <span>→</span></a>
