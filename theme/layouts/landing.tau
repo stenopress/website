@@ -36,8 +36,8 @@
       <section class="feature-index-section" id="capabilities">
         <div class="landing-shell">
           <div class="feature-index-heading">
-            <h2>Small core. Useful capabilities.</h2>
-            <p>Start with Markdown and add structure only when the site asks for it.</p>
+            <h2>And much more.</h2>
+            <p>Look over all other features Steno offers.</p>
           </div>
           <div class="feature-index">
             {#each data.features as feature}
@@ -49,8 +49,8 @@
       <section class="final-section">
         <div class="landing-shell final-card">
           <div>
-            <h2>Build something worth publishing.</h2>
-            <p>Start with a configured project, then keep only the complexity your site earns.</p>
+            <h2>Convince yourself.</h2>
+            <p>Maybe you are still not convinced. Try Steno yourself and see how it works.</p>
           </div>
           <div class="final-action">
             <button class="copy-command command-button light-command" type="button" aria-label="Copy initializer command">
