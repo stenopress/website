@@ -1,5 +1,17 @@
 const reducedMotion = globalThis.matchMedia("(prefers-reduced-motion: reduce)");
 
+for (const track of document.querySelectorAll(".plugin-track")) {
+  const duplicate = track.querySelector(".plugin-group").cloneNode(true);
+
+  duplicate.setAttribute("aria-hidden", "true");
+
+  for (const link of duplicate.querySelectorAll("a")) {
+    link.tabIndex = -1;
+  }
+
+  track.append(duplicate);
+}
+
 const wait = (milliseconds) =>
   new Promise((resolve) => globalThis.setTimeout(resolve, milliseconds));
 
