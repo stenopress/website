@@ -95,14 +95,14 @@ Write Markdown. Ship a website.</code></pre>
     <div class="metric-panel">
       <div class="primary-metric">
         <span>Cold build</span>
-        <strong>405<small>ms</small>
+        <strong>102<small>ms</small>
         </strong>
-        <p>4,000 Markdown pages</p>
+        <p>1,000 Markdown pages</p>
       </div>
       <div class="metric-row">
         <article>
           <span>Cold build</span>
-          <strong>102ms</strong><small>1,000 pages</small>
+          <strong>405ms</strong><small>4,000 pages</small>
         </article>
         <article>
           <span>Warm build</span>
