@@ -1094,6 +1094,10 @@ body {
   gap: 28px;
 }
 
+.registry-section .choice-card:last-child:nth-child(odd) {
+  border-bottom-right-radius: var(--landing-radius-md);
+}
+
 .registry-heading {
   display: flex;
   align-items: center;
@@ -2703,13 +2707,13 @@ body {
 .choice-intro h2 {
   max-width: none;
 }
-.choice-grid {
+#landing .choice-grid {
   position: relative;
   overflow: visible;
   gap: 110px;
   border: 0;
 }
-.choice-grid::after {
+#landing .choice-grid::after {
   content: "";
   position: absolute;
   left: 50%;
@@ -2720,9 +2724,11 @@ body {
   transform: rotate(28deg);
 }
 .choice-card {
+  padding: 26px;
+}
+#landing .choice-card {
   border: 1px solid var(--landing-line);
   border-radius: var(--landing-radius-md);
-  padding: 26px;
 }
 .choice-card h3 {
   margin-top: 8px;
@@ -3026,11 +3032,11 @@ body {
   #landing .assurance-section {
     padding-block: 40px;
   }
-  .choice-grid {
+  #landing .choice-grid {
     grid-template-columns: 1fr;
     gap: 24px;
   }
-  .choice-grid::after {
+  #landing .choice-grid::after {
     display: none;
   }
   .choice-intro {
