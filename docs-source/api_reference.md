@@ -27,6 +27,25 @@ import type { SiteConfig, StenoPlugin, StenoTheme } from "jsr:@steno/steno";
 Nothing currently exported from `mod.ts` is internal-only; every export below is one of the first
 two tiers.
 
+## Package export contracts
+
+Steno publishes three deliberately small API surfaces. The package root and the subpaths in this
+table are the complete public import contract. An implementation file being reachable inside a
+checkout does not make it public.
+
+| Package            | Use it for                                                                       | Public entrypoints                                                                                                                                                                                                                                                                                                                 |
+| ------------------ | -------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `jsr:@steno/steno` | Building or embedding a complete Steno site                                      | root only                                                                                                                                                                                                                                                                                                                          |
+| `jsr:@steno/core`  | Reusing Steno's content, rendering, theme, and plugin primitives in another host | root, `/assets`, `/collections`, `/concurrency`, `/config`, `/config-validation`, `/diagnostics`, `/frontmatter`, `/fs`, `/head`, `/isolated-plugin`, `/isolated-protocol`, `/isolated-worker`, `/page-config`, `/paths`, `/plugins`, `/render`, `/template`, `/text`, `/theme`, `/theme-config`, `/theme-functions`, and `/types` |
+| `jsr:@steno/tau`   | Rendering Tau templates without Steno or Markdown support                        | root, `/expression`, and `/parser`                                                                                                                                                                                                                                                                                                 |
+
+The root package exposes Steno's generator and CLI (`Steno`, `runStenoCli`), its theme and
+collection surface, Tau rendering and errors, diagnostics, and the configuration, plugin, theme,
+head, and collection types described below. Core exposes the reusable primitives behind that
+surface. Tau exposes only the standalone renderer, compiler, escaping and filter utilities, error
+formatting, cache controls, and their types. Exact names are checked in each package's compatibility
+tests; adding, removing, or renaming one is a public API change.
+
 ## `Steno`
 
 `new Steno(configPath?, autoBuildOnInit?, hooks?)` creates the site generator. The default
@@ -67,9 +86,10 @@ problem found, not just the first. See
 `Theme.loadFromDirectory` loads a convention-based local theme (a folder with `theme.yaml`) instead.
 `renderLayout(name, content, variables)` and `renderComponent(name, variables)` render templates and
 return `Promise<string>`; `variables` is the `PageRenderContext` shape (site/theme/page data merged
-for rendering). `copyAssets(outputDir, occupiedPaths?, hashAssets?)` writes the theme's assets to
-disk and returns a manifest mapping each asset's source path to its (possibly content-hashed) output
-path; see [Themes and Tau](theme_development.md#layout-context).
+for rendering). `copyAssets(outputDir, occupiedPaths?, hashAssets?, minifyCss?)` writes the theme's
+assets to disk and returns a manifest mapping each asset's source path to its (possibly
+content-hashed, possibly minified) output path; see
+[Themes and Tau](theme_development.md#layout-context).
 
 `mergeTheme(base, overrides)` merges a base `StenoTheme` (for example, one of the three official
 themes' exported default) with overrides, producing a new `StenoTheme` for extending a bundled theme
@@ -136,9 +156,10 @@ common `HeadTagBase`), used for `config.head` and a page's `steno.head` frontmat
 
 `StenoPlugin` types a plugin's hook object (`name`, `transformAst`, `transformHtml`, `beforeBuild`,
 `afterPage`, `afterBuild`); `StenoTheme` types a module-based theme's exported shape (`layouts`,
-`components`, `assets`, `configSchema`, `defaultConfig`, optional `plugins`); `PageRenderContext`
-types the object passed into a layout/component render. `StenoHooks` types the `hooks` argument to
-`new Steno(...)`.
+`components`, trusted theme-scoped `functions`, `assets`, `configSchema`, `defaultConfig`, optional
+`plugins`). Each `functions` entry is available to Tau as a call or pipe filter and may be async;
+see [Theme functions](theme-specification.md#theme-functions). `PageRenderContext` types the object
+passed into a layout/component render. `StenoHooks` types the `hooks` argument to `new Steno(...)`.
 
 `PluginEntry` types a `plugins` array entry in `SiteConfig` (`package`, `options`, `mode`,
 `permissions`, and the isolated-mode fields); `IsolatedPluginPermissions` types its `permissions`

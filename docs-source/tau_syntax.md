@@ -41,7 +41,7 @@ suffix/prefix.
 ```ebnf
 template        = { text | interpolation | raw_html | include | comment
                   | if_block | each_block | let_binding | component
-                  | children_slot } ;
+                  | children_slot | named_slot } ;
 interpolation   = "{", expression, { "|", filter }, "}" ;
 filter          = identifier, [ "(", [ expression, { ",", expression } ], ")" ] ;
 raw_html        = "{@html ", expression, "}" ;
@@ -57,8 +57,10 @@ each_block      = "{", ["-"], "#each ", expression, " as ", identifier,
                   "{", ["-"], "/each", ["-"], "}" ;
 let_binding     = "{#let ", identifier, " = ", expression, "}" ;
 children_slot   = "{@children}" ;
+named_slot      = "{@slot ", identifier, "}" ;
+slot_content    = "{#slot ", identifier, "}", template, "{/slot}" ;
 component       = "<", upper_identifier, { whitespace, prop }, [ whitespace ],
-                  ( "/>" | ">", template, "</", upper_identifier, ">" ) ;
+                  ( "/>" | ">", { template | slot_content }, "</", upper_identifier, ">" ) ;
 prop            = identifier
                 | identifier, "=", quoted_string
                 | identifier, "={", expression, "}"
@@ -183,7 +185,30 @@ with `{@children}`, a zero-argument tag equivalent to `{@html children}`:
 ```
 
 A component with no `{@children}` in its template silently ignores any children content passed to
-it. There is only one, unnamed slot per component; Tau 0.9 does not have named slots.
+it.
+
+Declare named content with `{#slot name}...{/slot}` directly inside a component call. Render it with
+`{@slot name}` in the component template:
+
+```tau
+<!-- component: Panel.tau -->
+<section><header>{@slot header}</header>{@children}<footer>{@slot footer}</footer></section>
+
+<!-- usage -->
+<Panel>
+  {#slot header}<h2>{post.title}</h2>{/slot}
+  <p>{post.excerpt}</p>
+  {#slot footer}<a href="/posts">All posts</a>{/slot}
+</Panel>
+```
+
+Named content is excluded from `{@children}`. Each slot is rendered once in the caller's scope,
+before the component runs, and inserted without double escaping. Missing and empty slots produce an
+empty string. Slot names must be identifiers and unique within the call; prototype-related names and
+the `__tau` prefix are forbidden. Declarations must be direct children of the component, but their
+contents can contain conditionals, loops, includes, and nested components. Bindings declared inside
+one slot stay inside that slot. Named slots are available as `slots.name` in the component context
+(for example, `{#if slots?.footer}...{/if}`); nested components receive their own slots.
 
 ## Whitespace control
 
@@ -233,6 +258,22 @@ renders as `<ul>\n  <li>a</li><li>b</li>\n</ul>` instead of leaving a blank line
   `null`/`undefined` render as an empty string.
 - `upper` and `lower` stringify and change case; a falsy input renders as an empty string.
 - `url` validates a value for use in a URL attribute; see below.
+- `slugify` normalizes accents, lowercases, and joins runs of non-letter/non-digit characters
+  with `-`, trimming leading and trailing hyphens. Unicode letters and digits are preserved;
+  `null`/`undefined` become empty strings. For example, `"Crème & Tea"` becomes `"creme-tea"`.
+  This formats a string; it does not change a page's output path.
+- `pluralize(singular, plural)` selects `singular` when the numeric input is exactly `1`, and
+  `plural` otherwise. Defaults are `""` and `"s"`: `{count} post{count | pluralize}`.
+  Supply complete words for irregular forms: `{count | pluralize("person", "people")}`.
+- `number_format(locale, digits)` formats numeric values and numeric strings using
+  `Intl.NumberFormat`. Defaults are `"en-US"` and at most `3` fractional digits; `digits` must
+  be an integer from 0 to 20. For example, `{price | number_format("de-DE", 2)}` renders
+  `1234.567` as `1.234,57`. Nullish/empty inputs become empty strings; non-finite or non-numeric
+  values are returned as strings. Invalid locales or precision produce a render error.
+- `markdown_inline` renders inline Markdown with the same Marked dependency used by Steno,
+  without paragraph wrappers or block headings. Use `{@html label | markdown_inline}` to emit
+  the HTML; ordinary `{label | markdown_inline}` escapes it. Nullish inputs become empty strings.
+  This filter does not sanitize HTML or link URLs; use raw output only with trusted Markdown.
 
 Filters chain left to right: `{value | truncate(20) | upper}` truncates first, then uppercases the
 result. A filter may be sync or async (see [Async function calls](#async-function-calls)).

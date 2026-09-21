@@ -25,6 +25,34 @@ Fields support `required`, `default`, `description`, and `enum`. Strings support
 `maxLength`, and `pattern`; numbers support `minimum` and `maximum`; arrays support `items`,
 `minItems`, and `maxItems`; objects support nested `properties` and `additionalProperties: false`.
 
+Use `oneOf` to require exactly one matching alternative, or `anyOf` to require at least one. Each
+alternative is a full field schema, including nested objects, arrays, or unions. A union may omit
+`type`; when supplied, `type` and all other outer constraints also apply. For example:
+
+```yaml
+configSchema:
+  accent_color:
+    default: indigo
+    oneOf:
+      - type: string
+      - type: array
+        minItems: 1
+        items:
+          anyOf:
+            - type: string
+              enum: [indigo, rose]
+            - type: object
+              additionalProperties: false
+              properties:
+                h: { type: number, required: true, minimum: 0, maximum: 360 }
+                s: { type: number, required: true, minimum: 0, maximum: 100 }
+                l: { type: number, required: true, minimum: 0, maximum: 100 }
+```
+
+Alternatives must be non-empty arrays. Overlapping alternatives such as `number` and `integer`
+reject integers under `oneOf`, but accept them under `anyOf`. Put `default` and `required` on the
+containing field: Steno does not choose defaults from union alternatives.
+
 Schema defaults, `defaultConfig`, and site `themeConfig` get applied in that order, then validated.
 The top-level merge is shallow, but schema validation and defaults can go recursive. Undeclared
 top-level keys are allowed, for backwards compatibility. An invalid value fails theme loading with a
@@ -62,8 +90,40 @@ layout, component, or asset `base` ships (for example `theme-marketing-minimal`'
 instead, so only the entry you actually named in `overrides` changes.
 
 This only applies to module-based themes (an importable `StenoTheme` object). A directory-based
-theme (`theme.yaml`) has no equivalent object to import and merge - copy from it or use `{@include}`
-instead; see [Themes and Tau](theme_development.md).
+theme (`theme.yaml`) has its own equivalent - `extends` - covered next.
+
+## Extending a directory theme
+
+A directory theme (`theme.yaml`) overrides another directory theme by setting `extends`:
+
+```yaml
+# theme.yaml
+name: My Minimal
+version: 1.0.0
+extends: jsr:@steno/theme-minimal
+```
+
+```text
+theme/
+├── theme.yaml
+└── layouts/
+    └── layout.tau   # overrides "layout"; every other layout from theme-minimal is untouched
+```
+
+`extends` accepts one of the three bundled specifiers (`jsr:@steno/theme-minimal`,
+`jsr:@steno/theme-docs-minimal`, `jsr:@steno/theme-marketing-minimal`, resolved from Steno's own
+packaged copy, no network request) or a local path starting with `.`, `/`, or `file://` - relative
+paths resolve against the extending theme's own directory, not the current working directory, so the
+theme keeps working regardless of where `steno build` runs from. Arbitrary `jsr:`, `npm:`, or
+`https:` module specifiers aren't accepted here - a directory theme's `extends` always resolves to
+another `theme.yaml` directory, never an importable `StenoTheme` module; use `mergeTheme` from a
+module theme instead if you need that.
+
+Layouts, components, assets, `configSchema`, and `defaultConfig` merge exactly like `mergeTheme`
+above: a file the child theme redeclares (same layout name, same component key, same asset path)
+replaces the base's, everything else survives. `name` and `version` always come from the child.
+Chains can go more than one level deep (`extends` all the way up); a theme that appears twice in its
+own chain fails to load with a clear "circular extends chain" error instead of hanging.
 
 ## Resolution
 
@@ -79,3 +139,51 @@ instead; see [Themes and Tau](theme_development.md).
    A local directory with neither a theme manifest nor one of those three files fails to load.
 3. Any other specifier (`jsr:`, `npm:`, or `https:`) is imported directly as a module exporting a
    `StenoTheme`.
+
+## Theme functions
+
+Register trusted helpers on a module theme with `functions`. The same helper works as an
+inline call or a pipe filter; filters pass the piped value as the first argument.
+
+```typescript
+const theme: StenoTheme = {
+  name: "my-theme",
+  version: "1.0.0",
+  layouts: { layout: '{translate("hello")} {"hello" | translate}' },
+  functions: {
+    translate: (key: unknown) => (key === "hello" ? "Hello" : String(key)),
+  },
+};
+```
+
+For a directory theme, point `theme.yaml` at a local module inside the theme directory:
+
+```yaml
+functions: ./functions.ts
+```
+
+```typescript
+// functions.ts
+export default {
+  translate: (key: unknown) => String(key).toUpperCase(),
+  link: (path: unknown) => `/docs/${String(path)}`,
+};
+```
+
+Helpers may be synchronous or asynchronous. They are available in layouts, components, and
+includes, and receive only their explicit arguments. Pass page or theme values as arguments
+when needed. Results are HTML-escaped in `{helper()}`; use `{@html helper()}` only for trusted
+HTML. Names must be valid Tau identifiers. Registered helpers take precedence over page
+variables and built-in filters with the same name, without changing another theme's registry.
+`mergeTheme` and directory `extends` merge helpers by name, with the child winning.
+
+Helper modules execute trusted JavaScript with the build process's permissions, just like
+module themes; they are not sandboxed plugins. YAML accepts only `./` paths contained within
+the theme directory, including after symlink resolution. Helpers can import their own
+dependencies. Development reloads refresh the entry module; restart the process after changing
+its imported dependencies.
+
+Compiled Tau templates remain shared, but helpers are resolved for each render. Since function
+closures cannot be serialized reliably, themes with helpers invalidate persistent page caches
+when a new theme instance is loaded. Repeated builds with the same instance retain a stable
+signature. Themes without helpers keep their existing cache behavior.
