@@ -47,6 +47,10 @@ Point a project at this theme with `theme: ./theme` (or wherever the folder live
 config file) in `content/.steno/config.yml`. See [Resolution](theme-specification.md#resolution) for
 every specifier form `theme` accepts, and [Configuration](config_reference.md) for `themeConfig`.
 
+Add `extends: jsr:@steno/theme-minimal` (or a local path to another `theme.yaml` directory) to
+`theme.yaml` to override just a layout or two instead of building a theme from scratch - see
+[Extending a directory theme](theme-specification.md#extending-a-directory-theme).
+
 ## Scripts
 
 `scripts/*.ts`/`*.tsx` are transpiled to JavaScript and merged into the theme's assets, so
@@ -68,8 +72,9 @@ yourself (outside `.tau` templates, which aren't typed)? Import `PageRenderConte
 output filename. CSS and JS assets are written under a content-hashed filename by default
 (`site.css` -> `site.a1b2c3d4.css`) so a redeploy with changed styles or scripts gets a new URL
 automatically - no CDN cache purge needed. Set `hashAssets: false` in the site config to keep source
-filenames as-is. Reference assets through this map rather than hardcoding the source filename either
-way:
+filenames as-is. CSS assets are also minified by default; set `minify: { css: false }` to keep
+source formatting as-is. Reference assets through this map rather than hardcoding the source
+filename either way:
 
 ```html
 <!doctype html>
@@ -96,7 +101,8 @@ Expressions are JavaScript expressions and are HTML-escaped:
 ```
 
 Use `{@html expression}` only for trusted HTML, such as Steno's generated `content`. Built-in
-filters are `date`, `truncate(length)`, `upper`, and `lower`; see
+filters include `date`, `truncate(length)`, `upper`, `lower`, `slugify`, `pluralize`,
+`number_format`, and `markdown_inline`; see
 [Built-in filters](tau_syntax.md#built-in-filters) for their defaults and edge-case behavior. Invoke
 a component with `<Header />`; props may be literals, expressions (`title={title}`), or shorthand
 (`{title}`).
@@ -137,16 +143,16 @@ components:
 <!-- layouts/article.tau -->
 <html>
   &#123;@include "Head"}
-  <meta property="og:type" content="article" />
   <body>
     {@html content}
   </body>
 </html>
 ```
 
-A layout can still add a few tags of its own directly after the include - `{@include}` only replaces
-the parts that are actually identical everywhere; it isn't a slot system and doesn't let a child
-layout override part of what it includes.
+`{@include}` replaces the parts that are identical everywhere; it does not let a child layout
+override part of what it includes. When an include contains the entire `<head>`, put additional
+metadata inside that component's `<head>`, not after the include in the calling layout. Prefer the
+`Base` composition pattern above when sharing the surrounding document structure as well.
 
 ## Safety limits
 
@@ -167,5 +173,5 @@ expressions.
 - [Tau syntax](tau_syntax.md) for the full expression grammar, built-in filters, and escaping rules.
 - [Theme specification](theme-specification.md) for module-based (`mod.ts`) themes, `configSchema`
   validation rules, and how `theme` is resolved.
-- [Configuration](config_reference.md) for `theme`, `themeConfig`, `hashAssets`, and other
-  site-level settings.
+- [Configuration](config_reference.md) for `theme`, `themeConfig`, `hashAssets`, `minify`, and
+  other site-level settings.
