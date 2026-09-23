@@ -1,0 +1,13 @@
+name: Aplós
+package: "@gabs/aplos"
+label: Community
+description: A Sleek, Contemporary, and Purposefully Designed Theme.
+install: "theme: jsr:@gabs/aplos"
+sourceUrl: https://github.com/me/theme-my-theme
+moduleSpecifier: "jsr:@gabs/aplos"
+demoFrontmatter:
+  title: Sample page title
+demoBody: |-
+  # Sample page title
+
+  Whatever Markdown best shows off the theme.
